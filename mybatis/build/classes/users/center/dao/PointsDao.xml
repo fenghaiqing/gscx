@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：必须与对应的接口全类名一致 id:必须与对应接口的某个对应的方法名一致 -->
+<mapper namespace="users.center.dao.PointsDao">
+	<resultMap id="basicResultMap" type="users.center.entity.Points">
+		<!-- 属性名和数据库列名映射 -->
+		<id property="id" column="id" jdbcType="DECIMAL"/>
+		<result property="point" jdbcType="DECIMAL" column="point" />
+		<result property="createDate" jdbcType="VARCHAR" column="create_Date" />
+		<result property="prePoint" jdbcType="DECIMAL" column="pre_Point" />
+	</resultMap>
+	<select id="selectByDate" resultMap="basicResultMap" parameterType="java.lang.String">
+		select * from points p where substring_index(p.create_date,'-',2) =#{0} order by create_date desc
+	</select>
+	
+	<select id="selectRant" resultType="java.lang.Double" parameterType="java.lang.String">
+		select truncate(sum(point)/count(1),2) t from points p where substring_index(p.create_date,'-',2) =#{0} 
+	</select>
+	 
+	 <select id="selectByyear" resultType="java.util.Map" parameterType="java.lang.String">
+	 	select *from (
+			select  truncate(SUM(point)/COUNT(1),2) rant ,substring_index(create_date,'-',2) month from points p GROUP BY substring_index(create_date,'-',2))r
+			where substring_index(r.`month`,'-',1)=#{0} order by r.month desc
+	 </select>
+</mapper>
