@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.hysd.entity.Person" table="PERSON" catalog="family">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID"/>
+            <generator class="increment"/>
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="name" />
+        </property>
+        <property name="age" type="java.lang.Integer">
+            <column name="age" />
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="password"/>
+        </property>
+    </class>
+</hibernate-mapping>
