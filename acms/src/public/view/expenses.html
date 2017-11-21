@@ -1,0 +1,137 @@
+﻿<!-- MENU SECTION END-->
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="page-head-line">expenses</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!--    Context Classes  -->
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <select class="form-control " name="projectId" ng-model="projectId">
+                                        <option value="">请选择所属项目</option>
+                                        <option ng-repeat="item in projects" value="{{item.id}}">{{item.projectName}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <button class="btn btn-default" type="button" ng-click="query();">查询</button>
+                                    <button class="btn btn-primary" type="button" ng-click="add();" ng-show="{{currentUser.role=='1' ||currentUser.role=='2'}}">新增</button>
+                                    <button class="btn btn-danger" ng-click="delete();" ng-show="{{currentUser.role=='1' ||currentUser.role=='2'}}">删除</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>序号</th>
+
+                                    <th>所属项目</th>
+                                    <th>商家</th>
+                                    <th>发票代码</th>
+                                    <th>金额</th>
+                                    <th>是否报销</th>
+                                    <th>创建时间</th>
+                                    <th>备注</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in data" >
+                                    <td><input type="checkbox"  ng-model="item.select"></td>
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.projectName}}</td>
+                                    <td>{{item.seller}}</td>
+                                    <td>{{item.invoice}}</td>
+                                    <td>{{item.amount}}</td>
+                                    <td>{{item.reimbursement}}</td>
+                                    <td>{{item.createDate}}</td>
+                                    <td>{{item.title}}</td>
+                                    <td><a href="javascript:void(0)" ng-click="update(item);" ng-show="{{currentUser.role=='1' ||currentUser.role=='2'}}">修改</a></td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <div class="modal fade" id="expressModal" tabindex="-1" role="dialog" aria-labelledby="expressModalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog ">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" ng-click=" dismiss();" aria-hidden="true">×</button>
+                                            <h4 class="modal-title" id="expressModalLabel" >{{isAdd?'新增':'更新'}}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2">项目名称:</label>
+                                                    <div class="col-sm-4">
+                                                        <select class="form-control " name="projectId" ng-model="expenses.projectId" ng-options="item.id as item.projectName for item in projects" >
+
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2">商家名称:</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" ng-model="expenses.seller" class="form-control"  >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2">发票代码:</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" ng-model="expenses.invoice" class="form-control"  >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2">金额:</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="number" ng-model="expenses.amount" class="form-control"  >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2">是否报销:</label>
+                                                    <div class="col-sm-4">
+                                                        是：
+                                                        <input type="radio" ng-model="expenses.reimbursement" name="reimbursement" value="已报销"   >
+                                                        否： <input type="radio" ng-model="expenses.reimbursement" name="reimbursement" value="未报销"  >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2">备注:</label>
+                                                    <div class="col-sm-8">
+                                                        <textarea ng-model="expenses.title" class="form-control" rows="5" > </textarea>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" ng-click="addExpenses();" ng-show="isAdd" >Save</button>
+                                            <button type="button" class="btn btn-primary" ng-click="updateExpenses();" ng-show="!isAdd">Update</button>
+                                            <button type="button" class="btn btn-default"  ng-click=" dismiss();">Cancel</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  end  Context Classes  -->
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- CONTENT-WRAPPER SECTION END-->

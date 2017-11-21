@@ -1,0 +1,25 @@
+﻿<!-- MENU SECTION END-->
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3" >
+                <a href="javascript:void(0)" ng-repeat="item in data"  ng-click="viewDetail(item);" class="list-group-item ">
+                   {{item.name}}
+                </a>
+
+            </div>
+            <div class="col-md-9 text-center">
+               <h3 class="h3">{{advertisement.name}}</h3>
+                <h6 class="h6"><span>创建时间:&nbsp;</span><span>{{advertisement.createDate}}</span>&nbsp;&nbsp;&nbsp;<span>创建人:&nbsp;</span><span>xxx</span></h6>
+              <hr>
+                <div class="text-center">
+                    <img ng-src="{{advertisement.advContent}}" width="70%">
+                </div>
+                <br>
+                <h4 class="h4">desc dvl  bvs savzsvvn fula csticen fdis</h4>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- CONTENT-WRAPPER SECTION END-->

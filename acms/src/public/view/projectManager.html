@@ -1,0 +1,92 @@
+﻿<!-- MENU SECTION END-->
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="page-head-line">Add Project </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-sm-6">Project information</div>
+                                <div class="col-sm-6 "> <a ui-sref="project" class="btn btn-default pull-right"><i class="fa fa-mail-reply"></i>返回</a></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-body">
+                        <form>
+                            <div class="form-group">
+                                <label >Project Code</label>
+                                <input type="text" class="form-control" ng-model="project.code"  placeholder="Project Code" />
+                            </div>
+                            <div class="form-group">
+                                <label >Project Name</label>
+                                <input type="text" class="form-control"  ng-model="project.projectName"  placeholder="Project Name" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">Project Description</label>
+                                <textarea class="form-control" id="description" rows="3"  ng-model="project.content" placeholder="Project Description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="budget" style="padding-left: 0px" class="col-sm-12">Project Budget</label>
+                                <input type="number" class=" col-sm-6" id="budget"  ng-model="project.budget" placeholder="Project Budget"/>
+                            </div>
+                            <div class="col-lg-12">&nbsp;</div>
+                            <div class="form-group ">
+                                <div class="col-lg-3"  style="padding-left: 0px">
+                                    <label class="control-label " style="padding-left: 0px">Estimated starting time</label>
+                                    <input type="date" class=" form-control"  ng-model="start"  placeholder="Estimated starting time</label" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-3"  style="padding-left: 0px">
+                                    <label for="description">Estimated end time</label>
+                                    <input type="date" class=" form-control"  ng-model="end"  placeholder="Estimated end time" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-3"  style="padding-left: 0px">
+                                    <label for="description">Project Leader</label>
+                                    <select class="form-control"  ng-model="project.belongTo" name="projectLeader">
+                                        <option value="">Please choose project leader</option>
+                                        <option ng-repeat="user in users" value="{{user.account}}">{{user.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-3"  ng-model="project.cpCode"  style="padding-left: 0px">
+                                    <label for="description">Business cooperation</label>
+                                    <select class="form-control">
+                                        <option value="">Please choose partner</option>
+                                        <option value="1">Apple</option>
+                                        <option value="2">AliBaBa</option>
+                                        <option value="3">HuaWei</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div class="form-group" >
+                                <div class="col-lg-12 text-center" style="margin-top: 30px;padding-bottom: 50px">
+                                    <button class=" btn btn-lg btn-primary" type="button" ng-click="createProject();" >save</button>
+                                    <button class=" btn btn-lg btn-default" type="button">cancel</button>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- CONTENT-WRAPPER SECTION END-->

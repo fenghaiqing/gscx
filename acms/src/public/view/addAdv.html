@@ -1,0 +1,76 @@
+﻿<!-- MENU SECTION END-->
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="page-head-line">Advertisement </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-sm-6">Advertisement info</div>
+                                <div class="col-sm-6 "> <a ui-sref="Advertisement" class="btn btn-default pull-right"><i class="fa fa-mail-reply"></i>返回</a></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-body">
+                        <form enctype="multipart/form-data" id="avdForm">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">广告名称</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" ng-model="adv.name"
+                                       placeholder="广告名称"/>
+                            </div>
+                            <div class="form-group">
+
+
+                                <div class="col-sm-3"  style="padding-left: 0px">
+                                    <select class="form-control "  ng-model="adv.type">
+                                        <option value="">请选择广告类型</option>
+                                        <option value="文字">文字</option>
+                                        <option value="图片">图片</option>
+                                        <option value="视频">视频</option>
+                                        <option value="音频">音频</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <select class="form-control " name="projectId" ng-model="adv.projectId">
+                                        <option value="">请选择所属项目</option>
+                                        <option ng-repeat="item in projects" value="{{item.id}}">{{item.projectName}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">&nbsp;</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-12"  style="padding-left: 0px">上传媒体文件</label>
+                                <div class="col-sm-12">
+                                    <input  type="file" name="content" id="content">
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="display: none">
+                                <label >广告内容</label>
+                                <textarea class="form-control" rows="3" placeholder="Text Area"></textarea>
+                            </div>
+
+                            <div class="form-group" >
+
+                                <div class="col-sm-12 text-center"  style="padding-top: 50px;padding-bottom: 50px">
+                                <button class="btn btn-primary" type="button" ng-click="addAdevertisement();">save</button>
+                                <button class="btn btn-default" type="button">cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- CONTENT-WRAPPER SECTION END-->
