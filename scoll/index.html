@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/jquery.mCustomScrollbar.css" rel="stylesheet">
+    <script src="js/jquery-1.9.1.js"></script>
+    <script src="js/jquery.mCustomScrollbar.js"></script>
+</head>
+<style>
+    .main {
+        height: 300px;
+        width: 500px;
+
+    }
+</style>
+<script>
+    $(function(){
+
+            $(".main").mCustomScrollbar({
+                horizontalScroll:false
+            });
+
+    })
+
+</script>
+<body>
+<div class="main">
+<div>
+    @Autowired
+    private MiguProjectBudgetService projectBudgetService;
+
+    /**
+    * 关联预算页面
+    */
+    @RequestMapping(value = "/estimateManager")
+    public ModelAndView contractManage(HttpServletRequest request) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("associatedEstimate");
+    return mav;
+    }
+
+    /**
+    * 关联预算
+    * @param miguProjectBudget
+    * @return
+    */
+    @RequestMapping(value="/associatedBudget",method=RequestMethod.POST)
+    @ResponseBody
+    public associatedBudget(@RequestBody  miguProjectBudget){
+
+    return projectBudgetService.associatedBudget(miguProjectBudget);
+    }
+
+    /**
+    * 取消关联
+    * @param miguProjectBudget
+    * @return
+    */
+    @RequestMapping(value="/cancelAssociation",method=RequestMethod.POST)
+    @ResponseBody
+    public  cancelAssociation(@RequestBody  miguProjectBudget){
+
+        return projectBudgetService.cancelAssociation(miguProjectBudget);
+        }
+
+        /**
+        * 查看关联预算
+        * @param miguProjectBudget
+        * @return
+        */
+        @RequestMapping(value="/viewAssociation",method=RequestMethod.POST)
+        @ResponseBody
+        public  viewAssociation(String projectId,String budgetProjectNumber,String budgetProjectName,Integer page,Integer rows){
+        MiguProjectBudget miguProjectBudget = new MiguProjectBudget();
+        miguProjectBudget.setProjectId(projectId);
+        miguProjectBudget.setBudgetProjectName(StringUtil.isEmpty(budgetProjectName)?null:budgetProjectName);
+        miguProjectBudget.setBudgetProjectNumber(StringUtil.isEmpty(budgetProjectNumber)?null:budgetProjectNumber);
+        miguProjectBudget.setPage(page==null?"":String.valueOf(page));
+        miguProjectBudget.setRows(rows==null?"":String.valueOf(rows));
+        return projectBudgetService.viewAssociation(miguProjectBudget);
+        }
+
+
+
+        /**
+        * 查询关联预算
+        * @param budgetYear
+        * @param budgetDeptCode
+        * @param budgetResultId
+        * @param currentPage
+        * @param pageSize
+        * @return
+        * @throws RemoteException
+        */
+        @RequestMapping(value = "/queryContractBudget", method = RequestMethod.POST)
+        @ResponseBody
+        public queryContractBudget(String budgetYear, String budgetDeptCode,String budgetResultId, Integer page,
+        Integer rows) throws RemoteException
+</div>
+</div>
+</body>
+</html>
