@@ -1,0 +1,18 @@
+<tabs >
+<uib-tabset>
+    <uib-tab  class="tab" ng-repeat="tab in tabs"  active="tab.disable" ng-click="changeTable(tab)">
+        <uib-tab-heading >
+           <!-- <b class="fa   {{tab.coin}}"></b>-->
+           <!-- tab.$parent.tabManager.removeTab($index);tabs.splice($index, 1);-->
+            <i class="fa fa-remove"   ng-click="removeTab($index);" style="display:{{tab.times}}"></i>
+            <!--点击这个"x"图案就删除这个tab-->
+            {{tab.heading}}
+        </uib-tab-heading>
+    </uib-tab>
+</uib-tabset>
+</tabs>
+<div style="padding: 10px;">
+    <div ui-view="windows"></div>
+    <div ng-show="$state.includes('windows.setting')" ui-view="setting"></div>
+    <div ng-show="$state.includes('windows.tables')" ui-view="tables"></div>
+</div>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<body ng-app="myApp" ng-controller="indexCtrl">
+<nav class="navbar navbar-default no-margin">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header fixed-brand">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle">
+            <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+        </button>
+        <a class="navbar-brand" href="#"><i class="fa fa-rocket fa-4"></i> M-33</a>
+    </div>
+    <!-- navbar-header-->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li class="active">
+                <button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                </button>
+            </li>
+        </ul>
+    </div>
+    <!-- bs-example-navbar-collapse-1 -->
+</nav>
+<div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+            <li class="active">
+                <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-dashboard fa-stack-1x "></i></span> Dashboard</a>
+                <ul class="nav-pills nav-stacked" style="list-style-type:none;">
+                    <li><a href="javascript:void(0);" ng-click="addTable('设置','windows.setting')">setting</a></li>
+                    <li><a href="javascript:void(0);" ng-click="addTable('表格','windows.tables')">tables</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid xyz" style="padding: 10px;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div   ui-view="content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+</div>
+<!-- /#wrapper -->
+<!-- jQuery -->
+
+</body>
+<script src="js/jquery.js"></script>
+<script src="js/all.js"></script>
+<script src="js/angular.js"></script>
+<script src="js/ct-ui-router-extras.min.js"></script>
+<script src="js/angular-ui-router.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/ui-bootstrap-tpls-0.14.3.js"></script>
+<script src="js/ui-router-tabs.js"></script>
+<script src="app.js"></script>
+<script src="./controller/indexCtrl.js"></script>
+<script src="./controller/settingCtrl.js"></script>
+<script src="js/angularjs-dropdown-multiselect.js"></script>
+</html>
+
