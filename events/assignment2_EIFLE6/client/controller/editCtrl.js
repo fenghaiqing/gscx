@@ -1,0 +1,33 @@
+/**
+ * Created by Administrator on 2018/1/25 0025.
+ */
+app.controller('editCtrl',function($scope,$state,$http,$stateParams){
+    $scope.events={
+        id:null,
+        title:null,
+        place:null,
+        date:null,
+        remark:null
+    }
+    $scope.id=$stateParams.id;
+
+    $scope.getOneEvent=function(){
+        $http.get('/events/'+$scope.id).success(function(result){
+            if(result){
+                $scope.events=result[0];
+            }
+        }).error(function(e){
+            elert("操作失败！");
+        })
+    }
+    $scope.getOneEvent();
+    $scope.update=function(){
+        $http.put('/events/'+$scope.events.id,$scope.events).success(function(result){
+            if(result){
+                $state.go('events');
+            }
+        }).error(function(e){
+            alert(e);
+        });
+    }
+});

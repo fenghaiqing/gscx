@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Define Charset -->
+	<meta charset="UTF-8">
+	<!-- Page Title -->
+	<title>Sports Coach</title>
+	
+	<!-- Responsive Metatag --> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.html">
+	<!-- Stylesheet
+	===================================================================================================  -->
+	<link rel="stylesheet" href="../font/fontello.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+
+
+	</head>	
+	<body ng-app="myApp" ng-controller="indexCtrl" >
+	<!-- Header -->
+	<div class="homepage">
+	<header>
+	    <div class="navbar navbar-default" role="navigation">
+	      <div class="container">
+	        <div class="navbar-header">
+	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	            <span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </button>
+	          <a class="navbar-brand" href="javascript:void(0)" ui-sref="home">Agency</a>
+	        </div>
+	        <div class="navbar-collapse collapse">
+	          <ul class="nav navbar-nav navbar-right">
+	            <li class="active"><a href="javascript:void(0)" ui-sref="home">Home</a></li>
+	            <li><a  href="javascript:void(0)"  ui-sref="about">About</a></li>
+	            <li><a href="javascript:void(0)"  ui-sref="events">EVENTS</a></li>
+	          </ul>
+	        </div>
+	      </div>
+	    </div>
+	</header>
+
+	</div>
+
+	<div ui-view></div>
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/angular.js"></script>
+	<script src="js/angular-ui-router.js"></script>
+	<script src="app.js"></script>
+	<script src="controller/indexCtrl.js"></script>
+	<script src="controller/editCtrl.js"></script>
+	<script src="controller/addCtrl.js"></script>
+	<script src="controller/eventCtrl.js"></script>
+	<script src="controller/aboutCtrl.js"></script>
+    </body>    
+</html>

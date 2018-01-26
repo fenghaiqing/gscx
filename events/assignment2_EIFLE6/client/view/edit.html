@@ -1,0 +1,39 @@
+<section id="menu-price" class="container price generic">
+    <h2 id="fittext2" class="title-start">
+        EDITE EVENT</h2>
+    <p class="sub-title ">&nbsp;</p>
+    <div class="col-md-2"></div>
+    <div class="pricing-table-col col-md-8" style="padding: 20px 20px;">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="date" class="col-sm-2 control-label">Date</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="date" ng-model="events.date" placeholder="Please enter the time">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="title" class="col-sm-2 control-label">Title</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="title" ng-model="events.title" placeholder="Please enter the title">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="place" class="col-sm-2 control-label">Place</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="place" ng-model="events.place" placeholder="Please enter the place">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="remark" class="col-sm-2 control-label">Remark</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="remark"  ng-model="events.remark" placeholder="Please enter the remark">
+                </div>
+            </div>
+            <div class="form-group text-center">
+
+                <button type="button" ng-click="update();" class="btn btn-primary">Save</button>
+                <a href="javascript:void(0);" ui-sref="events" class="btn btn-default">Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>
