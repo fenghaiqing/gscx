@@ -1,0 +1,43 @@
+﻿@charset "utf-8";
+
+/*! @ Copyright Statement
+ *  Project: LinkAge 2014
+ *  Release: 2014-11-06  17:22 PM
+ *  Author: Guo XiangYao
+ */
+
+html{height:100%;background: url(../../images/frontend/loginbg.jpg) no-repeat 50% 0%;}
+body{font:14px/24px "microsoft yahei", "simsun";color:#000;}
+
+.wrap{width:700px;position: relative;margin:84px 0 0 -200px;left:50%;}
+.clear{clear:both;}
+a{text-decoration:none;}
+ul, li{list-style:none;margin:0;padding:0;}
+
+
+.logo{background: url(../../images/frontend/loginsprite.png) no-repeat;height:39px;width:500px;overflow:hidden;text-indent:-999em;margin:0 0 12px}
+/* Login */
+.login-hd{background:#fff;border-radius:10px;box-shadow:0 3px 4px rgba(6, 0, 1, .2);height:370px;width:454px;}
+.login-form{padding:23px 0 0 37px;width:380px;float:left;position: relative;}
+.login-form .sponsor{background: url(../../images/frontend/loginsprite.png) no-repeat 0 -39px;height:41px;width:273px;overflow:hidden;text-indent:-999em;margin:0 0 24px}
+.form-error{position:absolute;left:37px;top:256px;color:#c00;}
+.form-item{position:relative;z-index:1;height:40px;line-height:38px;margin-bottom:20px;z-index:3}
+.form-item label{float:left;border:1px solid #dddddd;border-right:none;padding-left:15px;width:84px;background:#f4f4f4;}
+.form-item .input{color:#929292;width:250px;height:18px;line-height:18px;padding:10px 14px;border:1px solid #ddd;background-color:transparent;float:left;}
+.form-item .input:focus, .form-item .input-real{outline:none;color:#000;}
+.form-item-active .input, .form-item-active label{/*border-color:#33aaff*/}
+.form-item .code, .form-item .text-code{width:130px;}
+.form-item .refresh{float:right;background:#d99025;width:96px;text-align:center;color:#fff;}
+.form-item .get-code-ing{background:gray}
+.form-submit{margin-top:44px;}
+.form-submit .submit{border:none;width:100%;height:40px;line-height:40px;background:#89c344;color:#fff;cursor:pointer}
+.unit-lst{width:278px;background:#fff;border:1px solid #ddd;position:absolute;top:40px;right:0;border-top:none;line-height:44px;height:180px;overflow-y:auto;display:none;}
+.unit-lst li{cursor:pointer;padding-left:14px;}
+.unit-lst li.active{background:#89c344}
+
+.download-app{float:right;width:240px;background:#fff4e4;border-radius:0 10px 10px 0;height:370px;text-align:center;}
+.download-app-header{padding:18px 0;}
+.download-app-header a{color:#f16749;text-decoration:underline;}
+.download-app-item{margin-bottom:23px;line-height:22px;}
+
+body .sys-loading{background-image: url(../../images/frontend/sysloading.png);background-position:50% 0%;background-repeat:no-repeat;}

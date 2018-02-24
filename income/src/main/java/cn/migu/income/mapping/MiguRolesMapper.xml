@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.migu.income.dao.MiguRolesMapper" >
+
+  <resultMap id="BaseResultMap" type="cn.migu.income.pojo.MiguRoles" >
+    <id column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="CRTATE_DATE" property="crtateDate" jdbcType="VARCHAR" />
+    <result column="IS_ADMIN" property="isAdmin" jdbcType="DECIMAL" />
+  </resultMap>
+ 
+  <!-- 查询角色 -->
+  <select id="queryAllRoles" resultMap="BaseResultMap">
+  	select ROLE_ID, ROLE_NAME, to_char(CRTATE_DATE,'YYYY-MM-DD HH24:MI:SS') CRTATE_DATE, IS_ADMIN
+  	from (select t.*, rownum rn from T_MIGU_ROLES t
+  	  where 1=1
+  	  <if test="roleName != null">
+	  		and ROLE_NAME like concat(concat('%',#{roleName}),'%') ESCAPE '\'
+	  </if>
+	  order by ROLE_ID
+	)
+	where rn
+	between (#{curPage}-1) * #{pageSize} + 1 and (#{curPage}) * #{pageSize}
+  </select>
+  
+  <select id="queryRolesTotal" resultType="java.lang.Integer">
+  		select count(*) from T_MIGU_ROLES
+  		where 1=1
+  	    <if test="roleName != null">
+	  		and ROLE_NAME like concat(concat('%',#{roleName}),'%')
+	    </if>
+  </select>
+  
+  <select id="queryRoleByUserType" resultMap="BaseResultMap">
+  		select * from T_MIGU_ROLES WHERE ROLE_ID != 0
+  </select>
+  
+  <select id="queryUserRoleByUserId" resultMap="BaseResultMap">
+  	select b.* from t_migu_user_role a,T_MIGU_ROLES b where a.user_id = #{userId} and a.role_id = b.role_id order by b.role_id
+  </select>
+  
+  <!-- 增加角色 -->
+  <insert id="addRole" parameterType="cn.migu.income.pojo.MiguRoles" >
+    insert into T_MIGU_ROLES (ROLE_ID, ROLE_NAME, CRTATE_DATE, IS_ADMIN)
+    values (SEQ_MIGU_ROLES.NEXTVAL, #{roleName,jdbcType=VARCHAR}, sysdate, #{isAdmin,jdbcType=DECIMAL})
+  </insert>
+  
+  <!-- 删除角色 -->
+  <delete id="deleteRoles" >
+  	 delete from T_MIGU_ROLES  where ROLE_ID = #{roleId}
+  </delete>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="cn.migu.income.pojo.MiguRoles" >
+    update T_MIGU_ROLES
+    <set>
+      <if test="roleName != null" >
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROLE_ID = #{roleId,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="selectOne" resultMap="BaseResultMap" parameterType="cn.migu.income.pojo.MiguRoles" >    
+    select
+    *    
+    from T_MIGU_ROLES WHERE ROLE_NAME = #{roleName,jdbcType=VARCHAR}   
+  </select>
+  
+</mapper>

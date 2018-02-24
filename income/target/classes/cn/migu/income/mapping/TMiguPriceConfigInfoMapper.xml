@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.migu.income.dao.TMiguPriceConfigInfoMapper">
+	<resultMap id="BaseResultMap" type="cn.migu.income.pojo.TMiguPriceConfigInfo">
+		<result column="RN" jdbcType="VARCHAR" property="rn" />
+		<result column="PRICE_CONFIG_INFO_ID" jdbcType="DECIMAL"
+			property="priceConfigInfoId" />
+		<result column="PRODUCT_ID" jdbcType="VARCHAR" property="productId" />
+		<result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName" />
+		<result column="PURCHASE_PRICE" jdbcType="DECIMAL" property="purchasePrice" />
+		<result column="MIN_SELL_PRICE" jdbcType="DECIMAL" property="minSellPrice" />
+		<result column="OFFER_START_TIME" jdbcType="VARCHAR" property="offerStartTime" />
+		<result column="ILLUSTRATE" jdbcType="VARCHAR" property="illustrate" />
+		<result column="OFFER_END_TIME" jdbcType="VARCHAR" property="offerEndTime" />
+		<result column="PROJECT_ID" jdbcType="VARCHAR" property="projectId" />
+		<result column="PROJECT_NAME" jdbcType="VARCHAR" property="projectName" />
+		<result column="VENDOR_ID" jdbcType="VARCHAR" property="vendorId" />
+		<result column="VENDOR_NAME" jdbcType="VARCHAR" property="vendorName" />
+	</resultMap>
+	<insert id="insertSelective" parameterType="cn.migu.income.pojo.TMiguPriceConfigInfo">
+		<selectKey keyProperty="priceConfigInfoId" resultType="long"
+			order="BEFORE">
+			select seq_migu_price_config_info.nextVal from dual
+		</selectKey>
+		insert into T_MIGU_PRICE_CONFIG_INFO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="priceConfigInfoId != null">
+				PRICE_CONFIG_INFO_ID,
+			</if>
+			<if test="productId != null">
+				PRODUCT_ID,
+			</if>
+			<if test="productName != null">
+				PRODUCT_NAME,
+			</if>
+			<if test="purchasePrice != null">
+				PURCHASE_PRICE,
+			</if>
+			<if test="minSellPrice != null">
+				MIN_SELL_PRICE,
+			</if>
+			<if test="offerStartTime != null">
+				OFFER_START_TIME,
+			</if>
+			<if test="illustrate != null">
+				ILLUSTRATE,
+			</if>
+			<if test="projectId != null">
+				PROJECT_ID,
+			</if>
+			<if test="offerEndTime != null">
+				OFFER_END_TIME,
+			</if>
+			<if test="vendorId != null">
+				vendor_id,
+			</if>
+			<if test="vendorName != null">
+				VENDOR_NAME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="priceConfigInfoId != null">
+				#{priceConfigInfoId,jdbcType=DECIMAL},
+			</if>
+			<if test="productId != null">
+				#{productId,jdbcType=VARCHAR},
+			</if>
+			<if test="productName != null">
+				#{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="purchasePrice != null">
+				#{purchasePrice,jdbcType=DECIMAL},
+			</if>
+			<if test="minSellPrice != null">
+				#{minSellPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="offerStartTime != null">
+				#{offerStartTime,jdbcType=VARCHAR},
+			</if>
+			<if test="illustrate != null">
+				#{illustrate,jdbcType=VARCHAR},
+			</if>
+			<if test="projectId != null">
+				#{projectId,jdbcType=VARCHAR},
+			</if>
+			<if test="offerEndTime != null">
+				#{offerEndTime,jdbcType=VARCHAR},
+			</if>
+			<if test="vendorId != null">
+				#{vendorId,jdbcType=VARCHAR},
+			</if>
+			<if test="vendorName != null">
+				#{vendorName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="selectByprojectId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select A.*, C.PROJECT_ID, C.PROJECT_NAME from
+		T_MIGU_PRICE_CONFIG_INFO A
+		LEFT JOIN t_migu_project_base C ON A.PROJECT_ID = C.PROJECT_ID
+		WHERE
+		A.PROJECT_ID= #{projectId,jdbcType=VARCHAR}
+		ORDER BY
+		A.PRICE_CONFIG_INFO_ID DESC
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		DELETE FROM
+		T_MIGU_PRICE_CONFIG_INFO
+		WHERE PRICE_CONFIG_INFO_ID=
+		#{priceConfigInfoId,jdbcType=DECIMAL}
+	</delete>
+	<update id="updateByPrimaryKey" parameterType="cn.migu.income.pojo.TMiguPriceConfigInfo">
+		UPDATE T_MIGU_PRICE_CONFIG_INFO
+		<set>
+			<if test="productId != null">
+				PRODUCT_ID = #{productId,jdbcType=VARCHAR},
+			</if>
+			<if test="productName != null">
+				PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="purchasePrice != null">
+				PURCHASE_PRICE = #{purchasePrice,jdbcType=DECIMAL},
+			</if>
+			<if test="minSellPrice != null">
+				MIN_SELL_PRICE = #{minSellPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="offerStartTime != null">
+				OFFER_START_TIME = #{offerStartTime,jdbcType=VARCHAR},
+			</if>
+			<if test="illustrate != null">
+				ILLUSTRATE = #{illustrate,jdbcType=VARCHAR},
+			</if>
+			<if test="projectId != null">
+				PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+			</if>
+			<if test="offerEndTime != null">
+				OFFER_END_TIME = #{offerEndTime,jdbcType=VARCHAR},
+			</if>
+			<if test="vendorId != null">
+				VENDOR_ID = #{vendorId,jdbcType=VARCHAR},
+			</if>
+			<if test="vendorName != null">
+				VENDOR_NAME = #{vendorName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE PRICE_CONFIG_INFO_ID = #{priceConfigInfoId,jdbcType=DECIMAL}
+	</update>
+	<select id="selectByExample" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select i.project_id,
+		i.product_id,
+		i.product_name,
+		i.vendor_id,
+		i.vendor_name,
+		i.purchase_price,
+		i.min_sell_price,
+		i.offer_start_time,
+		i.offer_end_time,
+		i.illustrate,
+		i.PRICE_CONFIG_INFO_ID
+		from t_migu_price_config_info i
+		where 1=1
+		<if test="productId != null">
+			and i.product_id =#{productId,jdbcType=VARCHAR}
+		</if>
+		<if test="offerStartTime != null">
+			and i.offer_start_time =
+			#{offerStartTime,jdbcType=VARCHAR}
+		</if>
+		<if test="offerEndTime != null">
+			and i.offer_end_time = #{offerEndTime,jdbcType=VARCHAR}
+		</if>
+		<if test="projectId != null">
+			and i.project_id =#{projectId,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+
+	<select id="selectMiguPriceConfigByProject" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select t11.*
+		from (select t1.*, rownum rn
+		from (SELECT
+		i.project_id,
+		i.product_id,
+		i.product_name,
+		i.vendor_id,
+		i.vendor_name,
+		i.purchase_price,
+		i.min_sell_price,
+		i.offer_start_time,
+		i.offer_end_time,
+		i.illustrate,
+		i.PRICE_CONFIG_INFO_ID
+		FROM
+		t_migu_price_config_info i
+		where 1=1
+		<if test="projectId != null">
+			and i.project_id = #{projectId,jdbcType=VARCHAR}
+		</if>
+
+		<if test="q_productId != null">
+			AND (i.PRODUCT_ID like concat(concat('%',#{q_productId}),'%') ESCAPE
+			'\')
+		</if>
+		<if test="q_productName != null">
+			AND (i.PRODUCT_NAME like concat(concat('%',#{q_productName}),'%') ESCAPE
+			'\')
+		</if>
+
+		ORDER BY i.price_config_info_id,i.offer_start_time DESC
+		) t1) t11
+		where rn between (#{curPage} - 1) * #{pageSize} + 1 and
+		(#{curPage}) * #{pageSize}
+	</select>
+
+	<select id="queryTotal" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		select count(*) from (select * FROM
+		t_migu_price_config_info i
+		where 1=1
+		<if test="projectId != null">
+			and i.project_id = #{projectId,jdbcType=VARCHAR}
+		</if>
+		<if test="q_productId != null">
+			AND (i.PRODUCT_ID like concat(concat('%',#{q_productId}),'%') ESCAPE
+			'\')
+		</if>
+		<if test="q_productName != null">
+			AND (i.PRODUCT_NAME like concat(concat('%',#{q_productName}),'%') ESCAPE
+			'\')
+		</if>
+		)
+	</select>
+
+	<!-- 查询产品信息 -->
+	<select id="selectProduct" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		P.PRICE_CONFIG_INFO_ID,P.PRODUCT_ID,P.PRODUCT_NAME,P.MIN_SELL_PRICE
+		from t_migu_price_config_info p
+		where 1=1
+		<if test="projectId != null">
+			and P.PROJECT_ID = #{projectId}
+		</if>
+		<if test="today != null">
+			AND (#{today} between p.offer_start_time and p.offer_end_time)
+		</if>
+
+	</select>
+	<!-- 唯一键查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from t_migu_price_config_info where
+		PRICE_CONFIG_INFO_ID=#{priceConfigInfoId}
+	</select>
+	
+	<select id="selectByCase" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select * from t_migu_price_config_info m 
+		where 
+		m.project_id=#{0}
+		and #{1} between m.offer_start_time 
+		and m.offer_end_time 
+		and m.product_id=#{2}
+		and m.PRODUCT_NAME=#{3}
+		order by m.min_sell_price asc
+	</select>
+	
+	
+	<select id="queryAllpriceConfig" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select t1.*
+		from (SELECT
+		i.project_id,
+		i.product_id,
+		i.product_name,
+		i.vendor_id,
+		i.vendor_name,
+		i.purchase_price,
+		i.min_sell_price,
+		i.offer_start_time,
+		i.offer_end_time,
+		i.illustrate,
+		i.PRICE_CONFIG_INFO_ID
+		FROM
+		t_migu_price_config_info i
+		where 1=1
+		<if test="projectId != null">
+			and i.project_id = #{projectId,jdbcType=VARCHAR}
+		</if>
+
+		<if test="q_productId != null">
+			AND (i.PRODUCT_ID like concat(concat('%',#{q_productId}),'%') ESCAPE
+			'\')
+		</if>
+		<if test="q_productName != null">
+			AND (i.PRODUCT_NAME like concat(concat('%',#{q_productName}),'%') ESCAPE
+			'\')
+		</if>
+
+		ORDER BY i.price_config_info_id,i.offer_start_time DESC
+		) t1
+	</select>
+	<delete id="deleteByProjectId">
+		delete t_migu_price_config_info where project_id=#{0}
+	</delete>
+</mapper>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>income</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring-mybatis.xml</param-value>
+  </context-param>
+  <servlet>
+    <servlet-name>SpringMVC</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+    <async-supported>true</async-supported>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SpringMVC</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <async-supported>true</async-supported>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  
+  
+  
+  <!-- 单点登出监听器 -->
+    <listener>
+		<listener-class>com.chinamobile.cmss.sso.client.session.SingleSignOutHttpSessionListener</listener-class>
+    </listener>
+    <!-- 该过滤器用于实现单点登出功能 -->
+    <filter>
+        <filter-name>logoutFilter</filter-name>     
+        <filter-class>com.chinamobile.cmss.sso.client.session.SingleSignOutFilter</filter-class>
+      <!-- SSO服务地址，必填 -->
+      <init-param>
+            <param-name>casServerUrlPrefix</param-name>
+            <param-value>https://oatest.migu.cn:8443/sysso</param-value>
+      </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>logoutFilter</filter-name>
+        <url-pattern>/incomeOATask/*</url-pattern>
+    </filter-mapping>
+    
+    
+    
+    <!-- 该过滤器负责用户的认证工作，必须启用它 -->
+    <filter>
+        <filter-name>authenticationFilter</filter-name>
+		<filter-class>com.chinamobile.cmss.sso.client.authentication.AuthenticationFilter</filter-class>
+        <!-- 子系统服务地址，{protocol}:{hostName}:{port}，必填 -->
+         <init-param>
+            <param-name>serverName</param-name>
+            <param-value>http://127.0.0.1:8080</param-value>
+        </init-param> 
+       <!--   <init-param>
+            <param-name>serverName</param-name>
+            <param-value>http://192.168.129.156:8080</param-value>
+        </init-param> -->
+        <!-- 可选配置，用户未登陆子系统的处理方法， 1：重定向到SSO服务器自动认证登录，2：重定向到指定链接，3：自定义返回格式，默认1 -->
+        <init-param>
+            <param-name>handleNoLogin</param-name>
+            <param-value>1</param-value>
+        </init-param>
+        <!-- 1：重定向到SSO服务器自动认证登录，casServerLoginUrl：SSO服务器登录认证地址 -->
+        <!-- redirectUrl，可选配置，SSO服务器判断用户未授权后的跳转地址，如不配置，将跳转到SSO服务器统一认证页面 -->
+        <init-param>
+            <param-name>casServerLoginUrl</param-name>  
+            <param-value>https://oatest.migu.cn:8443/sysso/login</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>authenticationFilter</filter-name>
+        <url-pattern>/incomeOATask/*</url-pattern>
+    </filter-mapping>
+    
+  	
+  	
+  	
+  	<!-- 该过滤器负责对Ticket的校验工作，必须启用它 -->
+    <filter>
+        <filter-name>validationFilter</filter-name>
+        <filter-class>
+            com.chinamobile.cmss.sso.client.validation.TicketValidationFilter
+        </filter-class>
+        <!-- SSO服务地址，必填 -->
+        <init-param>
+            <param-name>casServerUrlPrefix</param-name>
+            <param-value>https://oatest.migu.cn:8443/sysso</param-value>
+        </init-param>
+        <!-- 子系统服务地址，{protocol}:{hostName}:{port}，必填 -->
+         <init-param>
+            <param-name>serverName</param-name>
+            <param-value>http://127.0.0.1:8080</param-value>
+        </init-param> 
+        <!--   <init-param>
+            <param-name>serverName</param-name>
+            <param-value>http://192.168.129.156:8080</param-value>
+        </init-param> -->
+        <!-- 可选配置，将验证后的返回值放入session中，按格式，原属性:放入属性;原属性:放入属性;...或者属性;属性;...，可配置若干个 -->
+        <init-param>
+            <param-name>sessionAttributes</param-name>
+            <param-value>username:username;userId:userId</param-value>
+        </init-param>
+        <!-- ticket校验失败的处理方法， 1：send error，2：重定向到指定链接，3：自定义返回格式，默认1 -->
+        <init-param>
+            <param-name>handleValidationFailure</param-name>
+            <param-value>1</param-value>
+        </init-param>
+        <!-- 验证成功后是否重新发起请求，如果是页面请求设为true，其他设为false -->
+        <init-param>
+            <param-name>redirectAfterValidation</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <!-- 验证成功后重定向请求url是否带有jsessionid，如果浏览器支持cookie，则设为false -->
+        <init-param>
+            <param-name>encodeServiceUrl</param-name>
+            <param-value>false</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>validationFilter</filter-name>
+        <url-pattern>/incomeOATask/*</url-pattern>
+    </filter-mapping>
+  	
+  
+  
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
+   <session-config>
+    <session-timeout>15</session-timeout>
+  </session-config>
+</web-app>

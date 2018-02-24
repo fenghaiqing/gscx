@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+        
+<!-- Mybatis Generator配置说明:http://mbg.cndocs.tk/configreference/xmlconfig.html -->
+
+<generatorConfiguration>
+	<!-- classPathEntry:数据库的JDBC驱动的jar包地址--> 
+	<classPathEntry location="C:\Users\admin\.m2\repository\com\oracle\ojdbc14\10.2.0.1.0\ojdbc14-10.2.0.1.0.jar" /> 
+	
+	<context id="OracleTables" targetRuntime="MyBatis3" defaultModelType="flat">
+	
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.129.155)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL.LK)))"
+			userId="usettle"
+			password="usettle1234">
+		</jdbcConnection>
+		
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- 生成的SQL映射文件包名和位置，这里配置将生成的bean文件放在cn.migu.income.pojo这个包下 -->
+		<javaModelGenerator targetPackage="cn.migu.income.pojo" targetProject="income/src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		
+		<!-- 生成的SQL映射文件包名和位置，这里配置将生成的SQL映射文件放在cn.migu.income.mapping这个包下 -->
+		<sqlMapGenerator targetPackage="cn.migu.income.mapping" targetProject="income/src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		
+		<!-- 生成DAO的包名和位置，这里配置将生成的dao类放在cn.migu.income.dao这个包下 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="cn.migu.income.dao" targetProject="income/src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- tableName:表名  domainObjectName:JavaBean的类名-->
+		<table tableName="t_migu_price_config" domainObjectName="TMiguPriceConfig"></table>
+		
+	</context>
+</generatorConfiguration>

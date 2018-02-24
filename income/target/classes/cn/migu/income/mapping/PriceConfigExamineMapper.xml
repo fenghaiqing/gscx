@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.migu.income.dao.PriceConfigExamineMapper">
+  <resultMap id="BaseResultMap" type="cn.migu.income.pojo.PriceConfigExamine">
+  
+    <result column="PRICE_CONFIG_ID" jdbcType="DECIMAL" property="priceConfigId" />
+    <result column="PRICE_CONFIG_NUMBER" jdbcType="VARCHAR" property="priceConfigNumber" />
+    <result column="PROJECT_ID" jdbcType="VARCHAR" property="projectId" />
+    <result column="PROJECT_DEPT_NAME" jdbcType="VARCHAR" property="projectDeptName" /> 
+    <result column="PROJECT_USER_NAME" jdbcType="VARCHAR" property="projectUserName" />
+    <result column="SUBMIT_AUDIT_TIME" jdbcType="VARCHAR" property="submitAuditTime" />
+    <result column="PERFORM_AUDIT_TIME" jdbcType="VARCHAR" property="performAuditTime" />
+    <result column="PRICE_CONFIG_AUDIT_USER" jdbcType="VARCHAR" property="priceConfigAuditUser" />
+    <result column="PRICE_CONFIG_AUDIT_RESULT" jdbcType="VARCHAR" property="priceConfigAuditResult" />
+    <result column="HANDLING_SUGGESTION" jdbcType="VARCHAR" property="handlingSuggestion" />
+  </resultMap>
+  
+  <select id="queryTotal" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select count(*) from (select t.*  from  T_MIGU_PRICE_CONFIG t,
+                         T_MIGU_PROJECT_BASE p,
+                         T_MIGU_USERS        u,
+                         T_MIGU_DEPARTMENTS  d
+                   where t.project_id = p.project_id
+                     and p.project_user_id = u.user_id
+                     and p.project_dept_id = d.dept_code
+                     and 1 = 1
+	     			<if test="q_projectId != null">
+			    		AND   (t.PROJECT_ID like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')  
+			    	</if>
+			    	<if test="q_projectDeptId != null"> 
+		        		AND    d.dept_code = #{q_projectDeptId}
+		     		</if>
+		     		<if test="q_projectUserName != null">
+			    		AND   (u.user_name like concat(concat('%',#{q_projectUserName}),'%') ESCAPE '\')  
+			    	</if>
+		     		<if test="q_priceConfigAuditResult != null"> 
+		        		AND   t.PRICE_CONFIG_AUDIT_RESULT = #{q_priceConfigAuditResult}
+		     		</if>
+		     		<if test="userId != null"> 
+		        		AND   t.PRICE_CONFIG_AUDIT_USER = #{userId}
+		     		</if>
+	    	)
+  </select>
+  
+  
+  <select id="queryAllExamine" resultMap="BaseResultMap" parameterType="java.util.Map">
+	     select t11.*
+  			from (select t1.*, rownum rn
+	          from (select u.user_name as projectUserName,
+                         d.dept_name as projectDeptName,
+                         t.*
+                    from T_MIGU_PRICE_CONFIG t,
+                         T_MIGU_PROJECT_BASE p,
+                         T_MIGU_USERS        u,
+                         T_MIGU_DEPARTMENTS  d
+                   where t.project_id = p.project_id
+                     and p.project_user_id = u.user_id
+                     and p.project_dept_id = d.dept_code
+                     and 1 = 1
+	                <if test="q_projectId != null">
+			    		AND   (t.PROJECT_ID like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')  
+			    	</if>
+			    	<if test="q_projectDeptId != null"> 
+		        		AND    d.dept_code = #{q_projectDeptId}
+		     		</if>
+		     		<if test="q_projectUserName != null">
+			    		AND   (u.user_name like concat(concat('%',#{q_projectUserName}),'%') ESCAPE '\')  
+			    	</if>
+		     		<if test="q_priceConfigAuditResult != null"> 
+		        		AND   t.PRICE_CONFIG_AUDIT_RESULT = #{q_priceConfigAuditResult}
+		     		</if>
+		     		<if test="userId != null"> 
+		        		AND   t.PRICE_CONFIG_AUDIT_USER = #{userId}
+		     		</if>
+		     			order by t.SUBMIT_AUDIT_TIME desc 
+	                ) t1) t11
+	 	where rn between (#{curPage} - 1) * #{pageSize} + 1 and
+	       (#{curPage}) * #{pageSize}
+  </select>
+  
+  <update id="updatePriceConfig">
+    update T_MIGU_PRICE_CONFIG set PRICE_CONFIG_AUDIT_RESULT = #{0} , HANDLING_SUGGESTION = #{2}, PERFORM_AUDIT_TIME = #{3}
+    where PRICE_CONFIG_ID = #{1}
+  </update>
+  
+  
+  <insert id="addPriceConfigHistory" >
+  	insert into t_migu_price_config_history
+	  (HISTORY_ID,
+	   PROJECT_ID,
+	   PROJECT_NAME,
+	   SUBMIT_AUDIT_TIME,
+	   PERFORM_AUDIT_TIME,
+	   AUDIT_RESULT,
+	   HANDLING_SUGGESTION,
+	   PRICE_CONFIG_ID)
+	  (select SEQ_MIGU_PRICE_CONFIG_INFO_HIS.NEXTVAL HISTORY_ID, c.*
+	     from (select a.project_id,
+	                  b.project_name,
+	                  a.submit_audit_time,
+	                  a.perform_audit_time,
+	                  a.price_config_audit_result,
+	                  a.handling_suggestion,
+	                  a.PRICE_CONFIG_ID
+	             from t_migu_price_config a, t_migu_project_base b
+	            where a.project_id = b.project_id
+	              and a.price_config_id = #{0}) c)
+  </insert>
+  
+  
+  
+</mapper>

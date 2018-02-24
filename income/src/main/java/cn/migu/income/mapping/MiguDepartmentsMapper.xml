@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.migu.income.dao.MiguDepartmentsMapper" >
+  <resultMap id="BaseResultMap" type="cn.migu.income.pojo.TMiguDepartments" >
+    <id column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
+    <result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+    <result column="DEPT_DESCRIBE" property="deptDescribe" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 查询所有部门 -->
+  <select id="queryAllDepList" resultMap="BaseResultMap" parameterType="java.util.Map">
+	    select t11.* from(select t1.*,rownum rn from (select t.* from T_MIGU_DEPARTMENTS t where 1=1 
+	     	<if test="deptName != null">
+	    		AND (DEPT_NAME like concat(concat('%',#{deptName}),'%') ESCAPE '\')  
+	    	</if>
+	     order by DEPT_CODE) t1) t11 where rn between (#{curPage}-1) * #{pageSize} + 1 and (#{curPage}) * #{pageSize} 
+  </select>
+  
+  <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select count(*) from (select t.*  from T_MIGU_DEPARTMENTS t where 1=1 
+	     	<if test="deptName != null">
+	    	  AND (DEPT_NAME like concat(concat('%',#{deptName}),'%') ESCAPE '\')  
+	    	</if>
+	    	
+	    	)
+  </select>
+  
+  <select id="selectOne" resultMap="BaseResultMap"  parameterType="java.lang.String">    
+    select * from T_MIGU_DEPARTMENTS WHERE DEPT_CODE = #{deptCode}   
+  </select>
+  
+  <insert id="addDep" parameterType="java.util.Map" >
+  	insert into T_MIGU_DEPARTMENTS(DEPT_CODE,DEPT_NAME,DEPT_DESCRIBE)
+  	values(#{deptCode},#{deptName},#{deptDescribe})
+  </insert>
+  
+  <delete id="deleteDep" parameterType="java.lang.String" >
+    delete from T_MIGU_DEPARTMENTS
+    where DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+  </delete>
+  
+  <update id="updateDep" parameterType="cn.migu.income.pojo.TMiguDepartments" >
+    update T_MIGU_DEPARTMENTS
+    <set >
+      <if test="deptName != null" >
+        DEPT_NAME = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptDescribe != null" >
+        DEPT_DESCRIBE = #{deptDescribe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryAllDep" resultMap="BaseResultMap">
+	   select * from T_MIGU_DEPARTMENTS order by dept_code
+  </select>
+  
+</mapper>

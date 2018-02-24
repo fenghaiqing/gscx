@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.migu.income.dao.MiguIncomeDetailMapper">
+	<resultMap id="BaseResultMap" type="cn.migu.income.pojo.MiguIncomeDetail">
+
+		<id column="INCOME_DETAIL_ID" jdbcType="DECIMAL" property="incomeDetailId" />
+		<result column="INCOME_MANAGER_ID" jdbcType="VARCHAR" property="incomeManagerId" />
+		<result column="PRICE_CONFIG_INFO_ID" jdbcType="VARCHAR"
+			property="priceConfigInfoId" />
+		<result column="SELLING_PRICE" jdbcType="DECIMAL" property="sellingPrice" />
+		<result column="PORDUCT_NUMBER" jdbcType="DECIMAL" property="porductNumber" />
+		<result column="TYPE" jdbcType="CHAR" property="type" />
+	</resultMap>
+
+	<resultMap id="BaseResultMap2" type="cn.migu.income.pojo.MiguProjectDetail">
+		<result column="PROJECT_ID" jdbcType="VARCHAR" property="projectId" />
+		<result column="PROJECT_NAME" jdbcType="VARCHAR" property="projectName" />
+		<result column="INCOME_CLASS_ID" jdbcType="VARCHAR" property="incomeClassId" />
+		<result column="INCOME_SECTION_ID" jdbcType="VARCHAR" property="incomeSectionId" />
+		<result column="PROJECT_USER_ID" jdbcType="VARCHAR" property="projectUserId" />
+		<result column="PROJECT_DEPT_ID" jdbcType="VARCHAR" property="projectDeptId" />
+		<result column="UPDATE_DATE" jdbcType="VARCHAR" property="updateDate" />
+		<result column="REQUISITION_FILENAME" jdbcType="VARCHAR" property="requisitionFileName" />
+		<result column="OA_SCREEN_FILENAME" jdbcType="VARCHAR" property="oaScreenFileName" />
+		<result column="PRO_FILE_FILENAME" jdbcType="VARCHAR" property="proFileFileName" />
+		<result column="COMMENTS" jdbcType="VARCHAR" property="comments" />
+		<result column="PROJECT_APPLY_USER_ID" jdbcType="VARCHAR" property="projectApplyUserId" />
+		<result column="REQUISITION_FILEPATH" jdbcType="VARCHAR" property="requisitionFilePath" />
+		<result column="OA_SCREEN_FILEPATH" jdbcType="VARCHAR" property="oaScreenFilePath" />
+		<result column="PRO_FILE_FILEPATH" jdbcType="VARCHAR" property="proFileFilepath" />
+
+	</resultMap>
+	
+	<resultMap id="printDetailMap" type="cn.migu.income.pojo.MiguPrintDetail">
+		<result column="PROJECT_ID" jdbcType="VARCHAR" property="projectId" />
+		<result column="INCOME_CLASS" jdbcType="VARCHAR" property="incomeClass" />
+		<result column="INCOME_SECTION" jdbcType="VARCHAR" property="incomeSection" />
+		<result column="USER_NAME" jdbcType="VARCHAR" property="projectUser" />
+		<result column="DEPT_NAME" jdbcType="VARCHAR" property="projectDept" />
+
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+
+		INCOME_DETAIL_ID, INCOME_MANAGER_ID, PRICE_CONFIG_INFO_ID, SELLING_PRICE,
+		PORDUCT_NUMBER,
+		TYPE
+	</sql>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+
+		select
+		<include refid="Base_Column_List" />
+		from T_MIGU_INCOME_DETAIL
+		where INCOME_DETAIL_ID = #{incomeDetailId}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+
+		delete from T_MIGU_INCOME_DETAIL
+		where INCOME_DETAIL_ID = #{incomeDetailId}
+	</delete>
+
+	<insert id="insert" parameterType="cn.migu.income.pojo.MiguIncomeDetail">
+		insert into T_MIGU_INCOME_DETAIL (INCOME_DETAIL_ID, INCOME_MANAGER_ID,
+		PRICE_CONFIG_INFO_ID, SELLING_PRICE, PORDUCT_NUMBER,
+		TYPE)
+		values (#{incomeDetailId,jdbcType=DECIMAL},
+		#{incomeManagerId,jdbcType=VARCHAR},
+		#{priceConfigInfoId,jdbcType=VARCHAR},
+		#{sellingPrice,jdbcType=DECIMAL}, #{porductNumber,jdbcType=DECIMAL},
+		#{type,jdbcType=CHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="cn.migu.income.pojo.MiguIncomeDetail">
+		<selectKey resultType="long" keyProperty="incomeDetailId"
+			order="BEFORE">
+			SELECT seq_migu_income_detail.NEXTVAL FROM DUAL
+		</selectKey>
+
+		insert into T_MIGU_INCOME_DETAIL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="incomeDetailId != null">
+				INCOME_DETAIL_ID,
+			</if>
+			<if test="incomeManagerId != null">
+				INCOME_MANAGER_ID,
+			</if>
+			<if test="priceConfigInfoId != null">
+				PRICE_CONFIG_INFO_ID,
+			</if>
+			<if test="sellingPrice != null">
+				SELLING_PRICE,
+			</if>
+			<if test="porductNumber != null">
+				PORDUCT_NUMBER,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="incomeDetailId != null">
+				#{incomeDetailId,jdbcType=DECIMAL},
+			</if>
+			<if test="incomeManagerId != null">
+				#{incomeManagerId,jdbcType=VARCHAR},
+			</if>
+			<if test="priceConfigInfoId != null">
+				#{priceConfigInfoId,jdbcType=VARCHAR},
+			</if>
+			<if test="sellingPrice != null">
+				#{sellingPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="porductNumber != null">
+				#{porductNumber,jdbcType=DECIMAL},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.migu.income.pojo.MiguIncomeDetail">
+
+		update T_MIGU_INCOME_DETAIL
+		<set>
+			<if test="incomeManagerId != null">
+				INCOME_MANAGER_ID = #{incomeManagerId,jdbcType=VARCHAR},
+			</if>
+			<if test="priceConfigInfoId != null">
+				PRICE_CONFIG_INFO_ID = #{priceConfigInfoId,jdbcType=VARCHAR},
+			</if>
+			<if test="sellingPrice != null">
+				SELLING_PRICE = #{sellingPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="porductNumber != null">
+				PORDUCT_NUMBER = #{porductNumber,jdbcType=DECIMAL},
+			</if>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=CHAR},
+			</if>
+		</set>
+		where INCOME_DETAIL_ID = #{incomeDetailId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="cn.migu.income.pojo.MiguIncomeDetail">
+
+		update T_MIGU_INCOME_DETAIL
+		set INCOME_MANAGER_ID = #{incomeManagerId,jdbcType=VARCHAR},
+		PRICE_CONFIG_INFO_ID = #{priceConfigInfoId,jdbcType=VARCHAR},
+		SELLING_PRICE = #{sellingPrice,jdbcType=DECIMAL},
+		PORDUCT_NUMBER = #{porductNumber,jdbcType=DECIMAL},
+		TYPE = #{type,jdbcType=CHAR}
+		where INCOME_DETAIL_ID = #{incomeDetailId,jdbcType=DECIMAL}
+	</update>
+
+	<select id="viewIncomeDetails" resultType="cn.migu.income.pojo.MiguIncomeDetail">
+		select t.income_detail_id as incomeDetailId, t.income_manager_id as
+		incomeManagerId,
+		t.price_config_info_id as priceConfigInfoId, t.selling_price as sellingPrice,
+		t.porduct_number as porductNumber, c.product_id as productId,
+		c.product_name as productName
+		from t_migu_income_detail t left join t_migu_price_config_info c
+		on t.price_config_info_id = c.price_config_info_id
+		where 1=1 and t.type='E' AND t.INCOME_MANAGER_ID = #{0}
+		order by INCOME_DETAIL_ID
+	</select>
+
+	<select id="viewRealIncomeDetails" resultType="cn.migu.income.pojo.MiguIncomeDetail">
+		select t.income_detail_id as incomeDetailId, t.income_manager_id as
+		incomeManagerId,
+		t.price_config_info_id as priceConfigInfoId, t.selling_price as sellingPrice,
+		t.porduct_number as porductNumber, c.product_id as productId,
+		c.product_name as productName
+		from t_migu_income_detail t left join t_migu_price_config_info c
+		on t.price_config_info_id = c.price_config_info_id
+		where 1=1 and t.type='R' AND t.INCOME_MANAGER_ID = #{0}
+		order by INCOME_DETAIL_ID
+	</select>
+	
+	<select id="selectByPriceConfigId" resultMap="BaseResultMap">
+		select * from t_migu_income_detail where PRICE_CONFIG_INFO_ID = #{0}
+	</select>
+
+	<!-- 查询收入所属项目详情 -->
+	<select id="selectProjectDetail" resultMap="BaseResultMap2">
+		select * from t_migu_project_base where project_id = #{0}
+	</select>	
+	
+	<!-- 查询项目打印详情 -->
+	<select id="selectPrintDetail" resultMap="printDetailMap">
+		select t1.project_id,t2.income_name as income_class,t3.income_name as income_section,t4.dept_name,t5.user_name
+		from t_migu_project_base t1 
+		left join t_migu_income_categories t2 on t1.income_class_id =t2.income_id
+		left join t_migu_income_categories t3 on t1.income_section_id =t3.income_id
+		left join t_migu_departments t4 on t1.project_dept_id = t4.dept_code
+		left join t_migu_users t5 on t1.project_user_id = t5.user_id 
+		where t1.project_id = #{0}
+	</select>		
+</mapper>

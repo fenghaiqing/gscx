@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.migu.income.dao.MiguProjectManageMapper">
+  <resultMap id="BaseResultMap" type="cn.migu.income.pojo.TMiguProjectBase">
+    <result column="RN" jdbcType="VARCHAR" property="rn"/>
+    <result column="PROJECT_ID" jdbcType="VARCHAR" property="projectId" />
+    <result column="PROJECT_NAME" jdbcType="VARCHAR" property="projectName" />
+    <result column="INCOME_CLASS_ID" jdbcType="VARCHAR" property="incomeClassId" />
+    <result column="INCOME_CLASS_NAME" jdbcType="VARCHAR" property="incomeClassName" />
+    <result column="INCOME_SECTION_ID" jdbcType="VARCHAR" property="incomeSectionId" />
+    <result column="INCOME_SECTION_NAME" jdbcType="VARCHAR" property="incomeSectionName" />
+    <result column="PROJECT_USER_ID" jdbcType="VARCHAR" property="projectUserId" />
+    <result column="PROJECT_USER_NAME" jdbcType="VARCHAR" property="projectUserName" />
+    <result column="PROJECT_DEPT_ID" jdbcType="VARCHAR" property="projectDeptId" />    
+    <result column="PROJECT_DEPT_NAME" jdbcType="VARCHAR" property="projectDeptName" />  
+    <result column="UPDATE_DATE" jdbcType="VARCHAR" property="updateDate"/>
+    <result column="REQUISITION_FILENAME" jdbcType="VARCHAR" property="requisitionFilename" />
+    <result column="OA_SCREEN_FILENAME" jdbcType="VARCHAR" property="oaScreenFilename"  />
+    <result column="PRO_FILE_FILENAME" jdbcType="VARCHAR" property="proFileFilename"  />
+    <result column="COMMENTS" jdbcType="VARCHAR" property="comments"  />
+    <result column="PROJECT_APPLY_USER_ID" jdbcType="VARCHAR" property="projectApplyUserId" />
+    <result column="REQUISITION_FILEPATH" jdbcType="VARCHAR" property="requisitionFilepath" />
+    <result column="OA_SCREEN_FILEPATH" jdbcType="VARCHAR" property="oaScreenFilepath" />
+    <result column="PRO_FILE_FILEPATH" jdbcType="VARCHAR" property="proFileFilepath"  />
+     <result column="contract" jdbcType="VARCHAR" property="contract" />
+    <result column="budget" jdbcType="VARCHAR" property="budget"  />
+     <result column="priceConfig" jdbcType="VARCHAR" property="priceConfig"  />
+     <result column="PROJECT_USER_NAME" jdbcType="VARCHAR" property="projectApplyUserName" />
+   <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+  
+  </resultMap>
+  
+  <insert id="saveProject" parameterType="cn.migu.income.pojo.TMiguProjectBase">
+    insert into T_MIGU_PROJECT_BASE (PROJECT_ID, PROJECT_NAME, INCOME_CLASS_ID, INCOME_SECTION_ID, PROJECT_USER_ID, PROJECT_DEPT_ID,
+      UPDATE_DATE, REQUISITION_FILENAME,OA_SCREEN_FILENAME, PRO_FILE_FILENAME, COMMENTS, PROJECT_APPLY_USER_ID, REQUISITION_FILEPATH, OA_SCREEN_FILEPATH ,PRO_FILE_FILEPATH,create_date)
+    values (#{projectId,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{incomeClassId,jdbcType=VARCHAR},  #{incomeSectionId,jdbcType=VARCHAR}, 
+      #{projectUserId,jdbcType=VARCHAR},#{projectDeptId,jdbcType=VARCHAR},#{updateDate,jdbcType=VARCHAR},#{requisitionFilename,jdbcType=VARCHAR},#{oaScreenFilename,jdbcType=VARCHAR},
+      #{proFileFilename,jdbcType=VARCHAR},#{comments,jdbcType=VARCHAR},#{projectApplyUserId,jdbcType=VARCHAR},#{requisitionFilepath,jdbcType=VARCHAR},
+      #{oaScreenFilepath,jdbcType=VARCHAR},#{proFileFilepath,jdbcType=VARCHAR},#{createDate,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="queryTotal" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select count(*) from (select t.*  from T_MIGU_PROJECT_BASE t where 1=1 
+	     	<if test="q_projectId != null">
+	    		AND   (PROJECT_ID like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="q_projectName != null">
+	    		AND   (PROJECT_NAME like concat(concat('%',#{q_projectName}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="q_incomeClassId != null"> 
+        		AND   INCOME_CLASS_ID = #{q_incomeClassId}
+     		</if>
+     		<if test="q_incomeSectionId != null"> 
+        		AND   INCOME_SECTION_ID = #{q_incomeSectionId}
+     		</if>
+      		<if test="q_projectUserName != null">
+	    		AND   PROJECT_USER_ID in (select user_id from t_migu_users where user_name like concat(concat('%',#{q_projectUserName}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="q_projectDeptId != null"> 
+        		AND   PROJECT_DEPT_ID = #{q_projectDeptId}
+     		</if>
+	    	)
+  </select>
+  
+  <select id="queryAllProject" resultMap="BaseResultMap" parameterType="java.util.Map">
+	     select t11.*
+  			from (select t1.*, rownum rn
+	          from (select u.user_name as projectUserName,
+	                       p.dept_name as projectDeptName,
+	                       (select b.income_name
+	                          from t_migu_income_categories b
+	                         where t.income_class_id = b.income_id) as incomeClassName,
+	                       (select b.income_name
+	                          from t_migu_income_categories b
+	                         where t.income_section_id = b.income_id) as incomeSectionName,
+	                         (select count(1)
+                          from t_migu_contract
+                         where project_id = t.project_id) contract,
+                       (select count(1)
+                          from t_migu_project_budget
+                         where project_id = t.project_id) budget,
+                       (select count(1)
+                          from t_migu_price_config_info
+                         where project_id = t.project_id) priceConfig,
+                      	(select z.user_name
+                            from T_MIGU_USERS z
+                           where t.project_apply_user_id = z.user_id) as projectApplyUserName,
+	                       t.*
+	                  from T_MIGU_PROJECT_BASE t,
+	                       T_MIGU_USERS        u,
+	                       T_MIGU_DEPARTMENTS  p
+	                 where t.project_user_id = u.user_id
+	                   and t.project_dept_id = p.dept_code
+	                   and 1 = 1
+	                <if test="q_projectId != null">
+			    		AND   (PROJECT_ID like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')  
+			    	</if>
+			    	<if test="q_projectName != null">
+			    		AND   (PROJECT_NAME like concat(concat('%',#{q_projectName}),'%') ESCAPE '\')  
+			    	</if>
+			    	<if test="q_incomeClassId != null"> 
+		        		AND   INCOME_CLASS_ID = #{q_incomeClassId}
+		     		</if>
+		     		<if test="q_incomeSectionId != null"> 
+		        		AND   INCOME_SECTION_ID = #{q_incomeSectionId}
+		     		</if>
+		      		<if test="q_projectUserName != null">
+			    		AND   PROJECT_USER_ID in (select user_id from t_migu_users where user_name like concat(concat('%',#{q_projectUserName}),'%') ESCAPE '\')  
+			    	</if>
+			    	<if test="q_projectDeptId != null"> 
+		        		AND   PROJECT_DEPT_ID = #{q_projectDeptId}
+		     		</if>
+		     		order by t.project_id DESC,t.update_date DESC
+	                ) t1) t11
+	 	where rn between (#{curPage} - 1) * #{pageSize} + 1 and
+	       (#{curPage}) * #{pageSize}
+  </select>
+  
+    <select id="queryAllProjectByUser" resultMap="BaseResultMap" parameterType="java.util.Map">
+	     select t11.*
+  			from (select t1.*, rownum rn
+	          from (select u.user_name as projectUserName,
+	                       p.dept_name as projectDeptName,
+	                       (select b.income_name
+	                          from t_migu_income_categories b
+	                         where t.income_class_id = b.income_id) as incomeClassName,
+	                       (select b.income_name
+	                          from t_migu_income_categories b
+	                         where t.income_section_id = b.income_id) as incomeSectionName,
+	                       t.*
+	                  from T_MIGU_PROJECT_BASE t,
+	                       T_MIGU_USERS        u,
+	                       T_MIGU_DEPARTMENTS  p
+	                 where t.project_user_id = u.user_id
+	                   and t.project_dept_id = p.dept_code
+	                   and 1 = 1
+			    		AND   PROJECT_USER_ID = #{userId} 
+			    		<if test="projectName != null">
+			    		and project_name like concat(concat('%',#{projectName}),'%') ESCAPE '\'
+			    		</if>
+			    		<if test="projectId != null">
+			    		and project_id=#{projectId} 
+			    		</if>
+			    		order by project_id DESC
+	                ) t1) t11
+	 	where rn between (#{curPage} - 1) * #{pageSize} + 1 and
+	       (#{curPage}) * #{pageSize}
+  </select>
+  <select id="getCount" resultType="java.lang.Long" parameterType="java.util.Map">
+	     select count(1)
+  			from (select t1.*, rownum rn
+	          from (select u.user_name as projectUserName,
+	                       p.dept_name as projectDeptName,
+	                       (select b.income_name
+	                          from t_migu_income_categories b
+	                         where t.income_class_id = b.income_id) as incomeClassName,
+	                       (select b.income_name
+	                          from t_migu_income_categories b
+	                         where t.income_section_id = b.income_id) as incomeSectionName,
+	                       t.*
+	                  from T_MIGU_PROJECT_BASE t,
+	                       T_MIGU_USERS        u,
+	                       T_MIGU_DEPARTMENTS  p
+	                 where t.project_user_id = u.user_id
+	                   and t.project_dept_id = p.dept_code
+	                   and 1 = 1
+			    		AND   PROJECT_USER_ID = #{userId} 
+			    		<if test="projectName != null">
+			    		and project_name  like concat(concat('%',#{projectName}),'%') ESCAPE '\'
+			    		</if>
+			    		<if test="projectId != null">
+			    		and project_id=#{projectId} 
+			    		</if>
+	                ) t1) t11
+  </select>
+  
+  <update id="doUpdateProject" parameterType="cn.migu.income.pojo.TMiguProjectBase">
+    update T_MIGU_PROJECT_BASE 
+	    set PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+	    INCOME_CLASS_ID = #{incomeClassId,jdbcType=VARCHAR},
+	    INCOME_SECTION_ID = #{incomeSectionId,jdbcType=VARCHAR},
+	    PROJECT_USER_ID = #{projectUserId,jdbcType=VARCHAR},
+	    UPDATE_DATE = #{updateDate,jdbcType=VARCHAR},
+	    <if test="requisitionFilename != null">
+	    REQUISITION_FILENAME = #{requisitionFilename,jdbcType=VARCHAR},
+	    </if>
+	    <if test="oaScreenFilename != null">
+	    OA_SCREEN_FILENAME = #{oaScreenFilename,jdbcType=VARCHAR},
+	    </if>
+	    <if test="proFileFilename != null">
+	    PRO_FILE_FILENAME = #{proFileFilename,jdbcType=VARCHAR},
+	    </if>
+	    COMMENTS = #{comments,jdbcType=VARCHAR} 
+	   	where PROJECT_ID = #{projectId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectManager" resultType="java.lang.Integer">
+  	select count(*) from t_migu_income_manager where project_id = #{projectId}
+  </select>
+  
+  <delete id="deleteConfig_history">
+  	delete from t_migu_price_config_history b where b.project_id = #{projectId}
+  </delete>
+  
+  <delete id="deleteConfig_info">
+  	delete from t_migu_price_config_info a where a.project_id = #{projectId}
+  </delete>
+  
+  <delete id="deleteConfig">
+  	delete from t_migu_price_config c where c.project_id = #{projectId}
+  </delete>
+  
+  <delete id="deleteBudget">
+  	delete from t_migu_project_budget d where d.project_id = #{projectId}
+  </delete>
+  
+  <delete id="deleteContract">
+  	delete from t_migu_contract e where e.project_id = #{projectId}
+  </delete>
+  
+  <delete id="deleteProject">
+  	delete from t_migu_project_base f where f.project_id = #{projectId}
+  </delete>
+	<select id="searchProject" resultType="java.util.Map"  parameterType="java.util.Map">
+	select*from (
+	  select j.*,rownum r from (
+	    select p.project_id ,p.project_name,p.project_dept_id,d.dept_name,u.user_name,p.project_user_id,
+	    (select INCOME_NAME from t_migu_income_categories where income_id=p.INCOME_CLASS_ID ) as INCOME_CLASS,
+	    (select INCOME_NAME from t_migu_income_categories where income_id=p.income_section_id ) as income_section
+	     from t_migu_project_base p  left join t_migu_users u on p.project_user_id=u.user_id left join t_migu_departments d on 
+	    p.project_dept_id=d.dept_code
+	    where 1=1
+	    <if test="projectName != null">
+			  and p.project_name  like concat(concat('%',#{projectName}),'%') ESCAPE '\'
+		</if>
+		<if test="projectId != null">
+			  and p.project_id=#{projectId} 
+		</if>
+		<if test="userId != null">
+			  and p.project_user_id=#{userId} 
+		</if>
+		
+	     order by p.create_date DESC) j
+	    ) where  r between (#{page}-1) * #{rows} + 1 and (#{page}) * #{rows}
+	</select>
+	
+	<select id="searchProjectCount" resultType="java.lang.Integer"  parameterType="java.util.Map">
+	    select count(1)
+	     from t_migu_project_base p 
+	    where 1=1
+	    <if test="projectName != null">
+			  and p.project_name  like concat(concat('%',#{projectName}),'%') ESCAPE '\'
+		</if>
+		<if test="projectId != null">
+			  and p.project_id=#{projectId} 
+		</if>
+		<if test="userId != null">
+			  and p.project_user_id=#{userId} 
+		</if>
+	</select>
+	<select id="selectOneById" resultMap="BaseResultMap"  parameterType="java.lang.String">
+	    select *  from t_migu_project_base p   WHERE p.project_id=#{0} 
+	</select>
+	
+</mapper>

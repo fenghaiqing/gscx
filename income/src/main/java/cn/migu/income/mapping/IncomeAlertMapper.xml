@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.migu.income.dao.IncomeAlertMapper" >
+	<!-- 实际收款告警 -->
+    <insert id="incomeAlert" statementType="CALLABLE" >  
+           {call p_migu_income_alert}  
+    </insert>  
+</mapper>

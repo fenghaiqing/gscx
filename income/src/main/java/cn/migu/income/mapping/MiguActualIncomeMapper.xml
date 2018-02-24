@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.migu.income.dao.MiguActualIncomeMapper">
+  <resultMap id="BaseResultMap" type="cn.migu.income.pojo.MiguIncomeActual">
+	<result column="BILLING_KEY" property="billingKey" jdbcType="VARCHAR" />
+	<result column="CYCLE" property="cycle" jdbcType="VARCHAR" />
+	<result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+	<result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+	<result column="BILLING_TYPE" property="billingType" jdbcType="VARCHAR" />
+	<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+	<result column="INVOICE_CODE" property="invoiceCode" jdbcType="VARCHAR" />
+	<result column="INVOICE_NUMBER" property="invoiceNumber" jdbcType="VARCHAR" />
+	<result column="BILLING_DATE" property="billingDate" jdbcType="VARCHAR" />
+	<result column="TOTAL" property="billingIncome" jdbcType="VARCHAR" />
+	<result column="INVOICE_STATUS" property="billingStatus" jdbcType="VARCHAR" />
+	<result column="INCOME" property="income" jdbcType="VARCHAR" />
+	<result column="INCOME_DATE" property="incomeDate" jdbcType="VARCHAR" />
+	<result column="INCOME_STATUS" property="incomeStatus" jdbcType="VARCHAR" />
+	<result column="INCOME_OPTION_URL" property="incomeOptionsUrl" jdbcType="VARCHAR" />
+	<result column="AUDIT_DEPARTMENT" property="auditDept" jdbcType="VARCHAR" />
+	<result column="AUDIT_PERSON" property="auditPerson" jdbcType="VARCHAR" />
+	<result column="ISNEED_BILL" property="isNeedBill" jdbcType="VARCHAR" />
+	<result column="BZ_CYCLE" property="bzCycle" jdbcType="VARCHAR" />
+	<result column="CLASS_NAME" property="className" jdbcType="VARCHAR" />
+	<result column="SECTION_NAME" property="sectionName" jdbcType="VARCHAR" />
+	<result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+	<result column="user_name" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="cn.migu.income.pojo.MiguIncomeDiff">
+  	<result column="RN" property="rn" jdbcType="VARCHAR" />
+    <result column="INCOME_MANAGER_ID" jdbcType="DECIMAL" property="incomeManagerId" />
+    <result column="CYCLE" jdbcType="VARCHAR" property="cycle" />
+    <result column="PROJECT_ID" jdbcType="VARCHAR" property="projectId" />
+    <result column="PROJECT_NAME" jdbcType="VARCHAR" property="projectName" />
+    <result column="ESTIMATE_INCOME" jdbcType="VARCHAR" property="estimateIncome" />
+    <result column="ESTIMATE_EXPLAIN" jdbcType="VARCHAR" property="estimateExplain" />
+    <result column="ESTIMATE_OPTIONS_URL" jdbcType="VARCHAR" property="estimateOptionsUrl" />
+    <result column="EASTIMATE_STATUS" jdbcType="VARCHAR" property="eastimateStatus" />
+    <result column="REAL_INCOME" jdbcType="VARCHAR" property="realIncome" />
+    <result column="REAL_STATUS" jdbcType="VARCHAR" property="realStatus" />
+    <result column="REAL_EXPLAIN" jdbcType="VARCHAR" property="realExplain" />
+    <result column="REAL_OPTIONS_URL" jdbcType="VARCHAR" property="realOptionsUrl" />
+    <result column="DEFERENCE_IN_INCOME" jdbcType="VARCHAR" property="deferenceInIncome" />
+    <result column="BILLING_TYPE" jdbcType="VARCHAR" property="billingType" />
+    <result column="TAXPAYER" jdbcType="VARCHAR" property="taxpayer" />
+    <result column="BILLING_STATUS" jdbcType="VARCHAR" property="billingStatus" />
+    <result column="INCOME" jdbcType="VARCHAR" property="income" />
+    <result column="INCOME_STATUS" jdbcType="VARCHAR" property="incomeStatus" />
+    <result column="INCOME_OPTION_URL" jdbcType="VARCHAR" property="incomeOptionUrl" />
+    <result column="INCOME_DATE" jdbcType="VARCHAR" property="incomeDate" />
+    <result column="LASTE_DATE" jdbcType="VARCHAR" property="lasteDate" />
+    <result column="AUDIT_DEPARTMENT" jdbcType="VARCHAR" property="auditDept" />
+    <result column="AUDIT_PERSON" jdbcType="VARCHAR" property="auditPerson" />
+    <result column="PROJECT_DEPT_ID" jdbcType="VARCHAR" property="deptId" />
+    <result column="DEPT_NAME" jdbcType="VARCHAR" property="deptName" />
+    <result column="PROJECT_USER_ID" jdbcType="VARCHAR" property="personId" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="personName" />
+    <result column="OFFSET" jdbcType="VARCHAR" property="offSet" />
+  </resultMap>
+  <resultMap id="BaseResultMap3" type="cn.migu.income.pojo.MiguIncomeBillIncome">
+	<result column="BILLING_KEY" property="billingKey" jdbcType="VARCHAR" />
+	<result column="CYCLE" property="cycle" jdbcType="VARCHAR" />
+	<result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+	<result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+	<result column="BILLING_TYPE" property="billingType" jdbcType="VARCHAR" />
+	<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+	<result column="INVOICE_CODE" property="invoiceCode" jdbcType="VARCHAR" />
+	<result column="INVOICE_NUMBER" property="invoiceNumber" jdbcType="VARCHAR" />
+	<result column="BILLING_DATE" property="billingDate" jdbcType="VARCHAR" />
+	<result column="TOTAL" property="billingIncome" jdbcType="VARCHAR" />
+	<result column="INVOICE_STATUS" property="billingStatus" jdbcType="VARCHAR" />
+	<result column="INCOME" property="income" jdbcType="VARCHAR" />
+	<result column="INCOME_DATE" property="incomeDate" jdbcType="VARCHAR" />
+	<result column="INCOME_STATUS" property="incomeStatus" jdbcType="VARCHAR" />
+	<result column="INCOME_OPTION_URL" property="incomeOptionsUrl" jdbcType="VARCHAR" />
+	<result column="AUDIT_DEPARTMENT" property="auditDept" jdbcType="VARCHAR" />
+	<result column="AUDIT_PERSON" property="auditPerson" jdbcType="VARCHAR" />
+	<result column="ISNEED_BILL" property="isNeedBill" jdbcType="VARCHAR" />
+	<result column="BILLTOTAL" property="billingTotal" jdbcType="VARCHAR" />
+	<result column="CLASS_NAME" property="className" jdbcType="VARCHAR" />
+	<result column="SECTION_NAME" property="sectionName" jdbcType="VARCHAR" />
+	<result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+	<result column="user_name" property="userName" jdbcType="VARCHAR" />
+	<result column="BZ_CYCLE" property="bzCycle" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="DepartmentsMap" type="cn.migu.income.pojo.TMiguDepartments" >
+    <id column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
+    <result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+    <result column="DEPT_DESCRIBE" property="deptDescribe" jdbcType="VARCHAR" />
+  </resultMap> 
+  <resultMap id="DeptUserMap" type="cn.migu.income.pojo.MiguUsers" >
+    <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="CRTATE_DATE" property="crtateDate" jdbcType="VARCHAR" />
+    <result column="START_DATE" property="startDate" jdbcType="VARCHAR" />
+    <result column="END_DATE" property="endDate" jdbcType="VARCHAR" />
+    <result column="PWD_DATE" property="pwdDate" jdbcType="VARCHAR" />
+    <result column="LAST_PWD" property="lastPwd" jdbcType="VARCHAR" />
+    <result column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+    <result column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+    <result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+     <result column="PRICING_COMMITTEE" property="pricingCommittee" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="auditHisMap" type="cn.migu.income.pojo.MiguIncomeManagerHis" >
+    <result column="INCOME_MANAGER_HIS_ID" property="incomeManagerHisId" jdbcType="VARCHAR" />
+    <result column="MIGU_INCOME_MANAGER_ID" property="miguIncomeManagerId" jdbcType="VARCHAR" />
+    <result column="AUDIT_PERSON" property="auditPerson" jdbcType="VARCHAR" />
+    <result column="AUDIT_DEPT" property="auditDept" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="VARCHAR" />
+    <result column="DEAL_RESULT" property="dealResult" jdbcType="VARCHAR" />
+    <result column="DEAL_OPTIONS" property="dealOptions" jdbcType="VARCHAR" />
+    <result column="TYPE" property="options" jdbcType="VARCHAR" />
+    <result column="BILLING_ID" property="billingKey" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="billingDetailMap" type="cn.migu.income.pojo.MiguIncomeBill">
+    <result column="PROJECT_ID" jdbcType="VARCHAR" property="projectId" />
+    <result column="INVOICE_CODE" jdbcType="VARCHAR" property="invoiceCode" />
+    <result column="INVOICE_NUMBER" jdbcType="VARCHAR" property="invoiceNumber" />
+    <result column="BILLING_DATE" jdbcType="VARCHAR" property="billingDate" />
+    <result column="PURCHASE_UNIT_NAME" jdbcType="VARCHAR" property="purchaseUnitName" />
+    <result column="PURCHASE_UNIT_CODE" jdbcType="VARCHAR" property="purchaseUnitCode" />
+    <result column="PURCHASE_UNIT_ADDR" jdbcType="VARCHAR" property="purchaseUnitAddr" />
+    <result column="PURCHASE_UNIT_ACCOUNT" jdbcType="VARCHAR" property="purchaseUnitAccount" />
+    <result column="PIN_UNIT_NAME" jdbcType="VARCHAR" property="pinUnitName" />
+    <result column="PIN_UNIT_CODE" jdbcType="VARCHAR" property="pinUnitCode" />
+    <result column="PIN_UNIT_ADDR" jdbcType="VARCHAR" property="pinUnitAddr" />
+    <result column="PIN_UNIT_ACCOUNT" jdbcType="VARCHAR" property="pinUnitAccount" />
+    <result column="PRICE" jdbcType="DECIMAL" property="price" />
+    <result column="TAX" jdbcType="DECIMAL" property="tax" />
+    <result column="TOTAL" jdbcType="DECIMAL" property="total" />
+    <result column="PAYEE" jdbcType="VARCHAR" property="payee" />
+    <result column="REVIEWER" jdbcType="VARCHAR" property="reviewer" />
+    <result column="DRAWER" jdbcType="VARCHAR" property="drawer" />
+    <result column="INVOICE_STATUS" jdbcType="VARCHAR" property="invoiceStatus" />
+    <result column="BILLING_TYPE" jdbcType="VARCHAR" property="billingType" />
+    <result column="BILLING_KEY" jdbcType="VARCHAR" property="billingKey" />
+  </resultMap>
+  
+<!--   查询收入明细表实际收款菜单总数 -->
+  <select id="queryTotal" resultType="java.lang.Integer" parameterType="java.util.Map" >
+	select count(*) from (select t.* from (select a.billing_key,a.cycle,  a.project_id,
+    a.project_name, '-' as billing_type,  '-' as invoice_status,'-' as invoice_code,
+    '-' as invoice_number,'-' as billing_date,to_char(b.total) as total,c.income,
+    c.income_date,c.income_status,c.income_option_url,c.audit_department,c.audit_person,
+    c.isneed_bill,c.BZ_CYCLE,F.INCOME_NAME CLASS_NAME, Z.INCOME_NAME SECTION_NAME, m.DEPT_NAME,
+    U.USER_NAME, P.project_user_id, P.INCOME_CLASS_ID, P.INCOME_SECTION_ID, m.DEPT_CODE
+    from t_migu_income_billing a left join (select t.billing_key, sum(t.total) as total
+    from t_migu_income_bill t group by t.billing_key) b on a.billing_key = b.billing_key
+    left join t_migu_income_actual c on a.billing_key = c.billing_key and (c.type &lt;&gt; '2' or c.type is null) 
+    LEFT JOIN T_MIGU_PROJECT_BASE P
+    ON a.PROJECT_ID = P.PROJECT_ID LEFT JOIN T_MIGU_DEPARTMENTS m ON P.PROJECT_DEPT_ID = m.DEPT_CODE
+    LEFT JOIN T_MIGU_USERS U ON P.PROJECT_USER_ID = U.USER_ID LEFT JOIN T_MIGU_INCOME_CATEGORIES F
+    ON F.INCOME_ID = P.INCOME_CLASS_ID LEFT JOIN T_MIGU_INCOME_CATEGORIES Z ON (Z.INCOME_ID = 
+    P.INCOME_SECTION_ID AND Z.INCOME_PARENT_ID = P.INCOME_CLASS_ID) where a.invoice_status = '00'
+    and (c.isneed_bill &lt;&gt; '0' or c.isneed_bill is null)  union all  select d.billing_key,
+    d.cycle, d.project_id,d.project_name,'-' as billing_type, '-' as invoice_status,'-' as invoice_code,
+    '-' as invoice_number, '-' as billing_date,'-' as total, d.income, d.income_date, d.income_status,
+    d.income_option_url,d.audit_department, d.audit_person, d.isneed_bill,d.BZ_CYCLE,F.INCOME_NAME CLASS_NAME,
+    Z.INCOME_NAME SECTION_NAME, m.DEPT_NAME, U.USER_NAME, P.project_user_id, P.INCOME_CLASS_ID,
+    P.INCOME_SECTION_ID, m.DEPT_CODE from t_migu_income_actual d LEFT JOIN T_MIGU_PROJECT_BASE P
+    ON d.PROJECT_ID = P.PROJECT_ID LEFT JOIN T_MIGU_DEPARTMENTS m ON P.PROJECT_DEPT_ID = m.DEPT_CODE
+    LEFT JOIN T_MIGU_USERS U ON P.PROJECT_USER_ID = U.USER_ID LEFT JOIN T_MIGU_INCOME_CATEGORIES F
+    ON F.INCOME_ID = P.INCOME_CLASS_ID LEFT JOIN T_MIGU_INCOME_CATEGORIES Z ON (Z.INCOME_ID = P.INCOME_SECTION_ID AND
+    Z.INCOME_PARENT_ID = P.INCOME_CLASS_ID) where d.isneed_bill = '0' and (d.type &lt;&gt; '2' or d.type is null)) t where 1 = 1
+	     	<if test="q_projectId != null">
+	    		AND   (t.project_id like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="q_projectName != null">
+	    		AND   (t.project_name like concat(concat('%',#{q_projectName}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="q_month != null"> 
+        		AND   t.cycle = #{q_month}
+     		</if>
+     		<if test="q_incomeState != null"> 
+        		AND   t.income_status = #{q_incomeState}  
+     		</if>
+      		<if test="q_userId != null">
+	    		AND   t.project_user_id =  #{q_userId}
+	    	</if>	
+	    	
+	    	<if test="q_record_month != null">
+	    		AND   t.BZ_CYCLE =  #{q_record_month}
+	    	</if> 
+	    	<if test="q_incomeClassId != null">
+	    		AND   t.INCOME_CLASS_ID =  #{q_incomeClassId}
+	    	</if>
+	    	<if test="q_incomeSectionId != null">
+	    		AND   t.INCOME_SECTION_ID =  #{q_incomeSectionId}
+	    	</if>
+	    	<if test="q_dept != null">
+	    		AND   t.dept_code =  #{q_dept}
+	    	</if>
+	    	<if test="q_userName != null">
+	    		AND   (t.USER_NAME like concat(concat('%',#{q_userName}),'%') ESCAPE '\') 
+	    	</if>
+	    	<if test="q_bill_num != null">
+	    		AND   t.BILLING_KEY =  #{q_bill_num}
+	    	</if>
+	    	<if test="q_bill_total != null">
+	    		AND   t.total =  #{q_bill_total}
+	    	</if>
+	    	<if test="q_income != null">
+	    		AND   t.income =  #{q_income}
+	    	</if>
+	    	<if test="income_date != null">
+	    		AND   t.income_date =  #{income_date}
+	    	</if>
+	    	)
+  </select>
+<!--   查询收入明细表实际收款菜单记录（分页） -->
+  <select id="queryAllActualIncome" resultMap="BaseResultMap" parameterType="java.util.Map">
+	  select t11.* from(select t1.*,rownum rn from (
+	select t.* from (select a.billing_key,a.cycle,  a.project_id,
+    a.project_name, '-' as billing_type,  '-' as invoice_status,'-' as invoice_code,
+    '-' as invoice_number,'-' as billing_date,to_char(b.total) as total,c.income,
+    c.income_date,c.income_status,c.income_option_url,c.audit_department,c.audit_person,
+    c.isneed_bill,c.BZ_CYCLE,F.INCOME_NAME CLASS_NAME, Z.INCOME_NAME SECTION_NAME, m.DEPT_NAME,
+    U.USER_NAME, P.project_user_id, P.INCOME_CLASS_ID, P.INCOME_SECTION_ID, m.DEPT_CODE
+    from t_migu_income_billing a left join (select t.billing_key, sum(t.total) as total
+    from t_migu_income_bill t group by t.billing_key) b on a.billing_key = b.billing_key
+    left join t_migu_income_actual c on a.billing_key = c.billing_key and (c.type &lt;&gt; '2' or c.type is null) 
+    LEFT JOIN T_MIGU_PROJECT_BASE P
+    ON a.PROJECT_ID = P.PROJECT_ID LEFT JOIN T_MIGU_DEPARTMENTS m ON P.PROJECT_DEPT_ID = m.DEPT_CODE
+    LEFT JOIN T_MIGU_USERS U ON P.PROJECT_USER_ID = U.USER_ID LEFT JOIN T_MIGU_INCOME_CATEGORIES F
+    ON F.INCOME_ID = P.INCOME_CLASS_ID LEFT JOIN T_MIGU_INCOME_CATEGORIES Z ON (Z.INCOME_ID = 
+    P.INCOME_SECTION_ID AND Z.INCOME_PARENT_ID = P.INCOME_CLASS_ID) where a.invoice_status = '00'
+    and (c.isneed_bill &lt;&gt; '0' or c.isneed_bill is null)  union all  select d.billing_key,
+    d.cycle, d.project_id,d.project_name,'-' as billing_type, '-' as invoice_status,'-' as invoice_code,
+    '-' as invoice_number, '-' as billing_date,'-' as total, d.income, d.income_date, d.income_status,
+    d.income_option_url,d.audit_department, d.audit_person, d.isneed_bill,d.BZ_CYCLE,F.INCOME_NAME CLASS_NAME,
+    Z.INCOME_NAME SECTION_NAME, m.DEPT_NAME, U.USER_NAME, P.project_user_id, P.INCOME_CLASS_ID,
+    P.INCOME_SECTION_ID, m.DEPT_CODE from t_migu_income_actual d LEFT JOIN T_MIGU_PROJECT_BASE P
+    ON d.PROJECT_ID = P.PROJECT_ID LEFT JOIN T_MIGU_DEPARTMENTS m ON P.PROJECT_DEPT_ID = m.DEPT_CODE
+    LEFT JOIN T_MIGU_USERS U ON P.PROJECT_USER_ID = U.USER_ID LEFT JOIN T_MIGU_INCOME_CATEGORIES F
+    ON F.INCOME_ID = P.INCOME_CLASS_ID LEFT JOIN T_MIGU_INCOME_CATEGORIES Z ON (Z.INCOME_ID = P.INCOME_SECTION_ID AND
+    Z.INCOME_PARENT_ID = P.INCOME_CLASS_ID) where d.isneed_bill = '0' and (d.type &lt;&gt; '2' or d.type is null)) t where 1 = 1
+	     	<if test="q_projectId != null">
+	    		AND   (t.project_id like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="q_projectName != null">
+	    		AND   (t.project_name like concat(concat('%',#{q_projectName}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="q_month != null"> 
+        		AND   t.cycle = #{q_month}
+     		</if>
+     		<if test="q_incomeState != null"> 
+        		AND   t.income_status = #{q_incomeState}  
+     		</if>
+      		<if test="q_userId != null">
+	    		AND   t.project_user_id =  #{q_userId}
+	    	</if>	
+	    	
+	    	<if test="q_record_month != null">
+	    		AND   t.BZ_CYCLE =  #{q_record_month}
+	    	</if> 
+	    	<if test="q_incomeClassId != null">
+	    		AND   t.INCOME_CLASS_ID =  #{q_incomeClassId}
+	    	</if>
+	    	<if test="q_incomeSectionId != null">
+	    		AND   t.INCOME_SECTION_ID =  #{q_incomeSectionId}
+	    	</if>
+	    	<if test="q_dept != null">
+	    		AND   t.dept_code =  #{q_dept}
+	    	</if>
+	    	<if test="q_userName != null">
+	    		AND   (t.USER_NAME like concat(concat('%',#{q_userName}),'%') ESCAPE '\') 
+	    	</if>
+	    	<if test="q_bill_num != null">
+	    		AND   t.BILLING_KEY =  #{q_bill_num}
+	    	</if>
+	    	<if test="q_bill_total != null">
+	    		AND   t.total =  #{q_bill_total}
+	    	</if>
+	    	<if test="q_income != null">
+	    		AND   t.income =  #{q_income}
+	    	</if>
+	    	<if test="income_date != null">
+	    		AND   t.income_date =  #{income_date}
+	    	</if>
+	   order by to_number(t.project_id) desc,t.cycle desc,t.billing_key) t1) t11 where rn between (#{curPage}-1) * #{pageSize} + 1 and (#{curPage}) * #{pageSize} 
+  </select>
+  
+<!--   查询单次开票实际收款明细 -->
+  <select id="querySglActualIncome" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select t.* from(     
+			   select a.billing_key,
+               a.cycle,
+               a.bz_cycle,
+               a.project_id,
+               a.project_name,
+               '-' as billing_type,
+               '-' as invoice_status,
+               '-' as invoice_code,
+               '-' as invoice_number,
+               '-' as billing_date,
+               to_char(b.total) as total,
+               c.income,
+               c.income_date,
+               c.income_status,
+               c.income_option_url,
+               c.audit_department,
+               c.audit_person,
+               c.isneed_bill
+          from t_migu_income_billing a
+          left join (select t.billing_key, sum(t.total) as total
+                      from t_migu_income_bill t
+                     group by t.billing_key) b
+            on a.billing_key = b.billing_key
+          left join t_migu_income_actual c 
+            on a.billing_key = c.billing_key and (c.type &lt;&gt; '2' or c.type is null) 
+         where a.invoice_status = '00'
+           and (c.isneed_bill &lt;&gt; '0' or c.isneed_bill is null)
+        union all
+        select d.billing_key,
+               d.cycle,
+               d.bz_cycle,
+               d.project_id,
+               d.project_name,
+               '-' as billing_type,
+               '-' as invoice_status,
+               '-' as invoice_code,
+               '-' as invoice_number,
+               '-' as billing_date,
+               '-' as total,
+               d.income,
+               d.income_date,
+               d.income_status,
+               d.income_option_url,
+               d.audit_department,
+               d.audit_person,
+               d.isneed_bill
+          from t_migu_income_actual d
+         where d.isneed_bill = '0' and (d.type &lt;&gt; '2' or d.type is null)) t
+		where t.billing_key = #{billingKey}
+  </select>
+
+<!--   查询实际收款表是否存在此次开票 -->
+  <select id="queryExistActualIncome" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(*) from t_migu_income_actual t where billing_key = #{billingKey}
+  </select>
+  
+<!--   查询实际收款对应项目的开票总金额 -->
+  <select id="querySglBillTotal" resultType="java.lang.String" parameterType="java.lang.String">
+	    select sum(t.total) from t_migu_income_bill t  where t.billing_key = #{billingKey} group by t.billing_key
+  </select>  
+    
+<!--   查询所有部门 -->
+  <select id="queryAllDep" resultMap="DepartmentsMap">
+	   select * from T_MIGU_DEPARTMENTS order by dept_code
+  </select>
+  
+<!--  查询部门人员 -->
+  <select id="querydepPerson" resultMap="DeptUserMap">
+	   select * from t_migu_users  where dept_id =#{deptId}
+  </select>
+  
+<!--   新增实际收款表记录 -->
+  <insert id="insertIncome" parameterType="cn.migu.income.pojo.MiguIncomeActual">
+    insert into t_migu_income_actual (BILLING_KEY, CYCLE, PROJECT_ID, PROJECT_NAME, INCOME,
+      INCOME_DATE,INCOME_STATUS,INCOME_OPTION_URL,AUDIT_DEPARTMENT,AUDIT_PERSON,ISNEED_BILL,BZ_CYCLE)
+    values (#{billingKey,jdbcType=VARCHAR},#{cycle,jdbcType=VARCHAR},#{projectId,jdbcType=VARCHAR},
+    #{projectName,jdbcType=VARCHAR},#{income,jdbcType=VARCHAR},#{incomeDate,jdbcType=VARCHAR},
+    #{incomeStatus,jdbcType=CHAR},#{incomeOptionsUrl,jdbcType=VARCHAR},#{auditDept,jdbcType=VARCHAR},
+    #{auditPerson,jdbcType=VARCHAR},#{isNeedBill,jdbcType=VARCHAR},#{bzCycle,jdbcType=VARCHAR}
+    )
+  </insert>
+  
+<!--   更新实际收款表记录 -->
+  <update id="updateIncome" parameterType="cn.migu.income.pojo.MiguIncomeActual">
+    update t_migu_income_actual
+    set 
+      CYCLE = #{cycle,jdbcType=VARCHAR},
+      PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      INCOME = #{income,jdbcType=VARCHAR},
+      INCOME_DATE = #{incomeDate,jdbcType=VARCHAR},
+      INCOME_STATUS = #{incomeStatus,jdbcType=CHAR},
+      INCOME_OPTION_URL = #{incomeOptionsUrl,jdbcType=VARCHAR},
+      AUDIT_DEPARTMENT = #{auditDept,jdbcType=VARCHAR},
+      AUDIT_PERSON = #{auditPerson,jdbcType=VARCHAR},
+      BZ_CYCLE = #{bzCycle,jdbcType=VARCHAR}
+    where BILLING_KEY = #{billingKey,jdbcType=VARCHAR}
+  </update>
+<!--   查询收入明细表预估、实际收入差额报表菜单总数（预估收入审核通过） -->
+  <select id="queryTotalDiff" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select count(*) from (select t.*  from T_MIGU_INCOME_MANAGER t where EASTIMATE_STATUS = '2' AND (t.real_status = '2' or t.real_status is null)
+	     	<if test="q_projectId != null">
+	    		AND   (PROJECT_ID like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="q_projectName != null">
+	    		AND   (PROJECT_NAME like concat(concat('%',#{q_projectName}),'%') ESCAPE '\')  
+	    	</if>
+     		<if test="q_month_start != null"> 
+        		AND   CYCLE &gt;= #{q_month_start}  
+     		</if>
+     		<if test="q_month_end != null"> 
+        		AND   CYCLE &lt;= #{q_month_end}  
+     		</if>
+     			AND   PROJECT_ID in (select a.project_id from t_migu_project_base a where 1 = 1
+      		<if test="q_dept != null">
+	    		AND	 a.PROJECT_DEPT_ID = #{q_dept}  
+	    	</if>
+	    	<if test="q_person != null">
+	    		AND	 a.PROJECT_USER_ID = #{q_person}  
+	    	</if>
+	    	))
+  </select>
+  
+  <!--  查询收入明细表预估、实际收入差额报表菜单记录（分页）（预估收入审核通过） -->
+  <select id="queryAllIncomeDiff" resultMap="BaseResultMap2" parameterType="java.util.Map">
+	   select t11.* from(select t1.*,rownum rn from (select t3.*,t4.dept_name,t5.user_name from (
+	   			select t.*,t2.PROJECT_USER_ID,t2.PROJECT_DEPT_ID 
+	   			from T_MIGU_INCOME_MANAGER t,T_MIGU_PROJECT_BASE t2 where t.EASTIMATE_STATUS = '2' AND (t.real_status = '2' or t.real_status is null)
+	   			AND	 t.PROJECT_ID = t2.PROJECT_ID
+	     	<if test="q_projectId != null">
+	    		AND   (t.PROJECT_ID like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="q_projectName != null">
+	    		AND   (t.PROJECT_NAME like concat(concat('%',#{q_projectName}),'%') ESCAPE '\')  
+	    	</if>
+     		<if test="q_month_start != null"> 
+        		AND   t.CYCLE &gt;= #{q_month_start}  
+     		</if>
+     		<if test="q_month_end != null"> 
+        		AND   t.CYCLE &lt;= #{q_month_end}  
+     		</if>
+     			AND   t.PROJECT_ID in (select a.project_id from t_migu_project_base a where 1 = 1
+      		<if test="q_dept != null">
+	    		AND	 a.PROJECT_DEPT_ID = #{q_dept}  
+	    	</if>
+	    	<if test="q_person != null">
+	    		AND	 a.PROJECT_USER_ID = #{q_person}  
+	    	</if>
+	    		))t3,t_migu_departments t4,t_migu_users t5 where 
+ 				t3.project_dept_id = t4.dept_code  AND t3.project_user_id =t5.user_id 
+				order by to_number(t3.project_id)
+            	)t1 ) t11 where rn between (#{curPage}-1) * #{pageSize} + 1 and (#{curPage}) * #{pageSize} 
+  </select>
+  
+  <!--   查询收入明细表预估、实际收入差额报表菜单记录（不分页）（预估收入审核通过）-->
+  <select id="queryDiffNopage" resultMap="BaseResultMap2" parameterType="java.util.Map">
+	   select t3.*,t4.dept_name,t5.user_name from (
+	   			select t.*,t2.PROJECT_USER_ID,t2.PROJECT_DEPT_ID 
+	   			from T_MIGU_INCOME_MANAGER t,T_MIGU_PROJECT_BASE t2 where t.EASTIMATE_STATUS = '2' AND (t.real_status = '2' or t.real_status is null)
+	   			AND	 t.PROJECT_ID = t2.PROJECT_ID
+	     	<if test="projectId != null">
+	    		AND   (t.PROJECT_ID like concat(concat('%',#{projectId}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="projectName != null">
+	    		AND   (t.PROJECT_NAME like concat(concat('%',#{projectName}),'%') ESCAPE '\')  
+	    	</if>
+     		<if test="monthStart != null"> 
+        		AND   t.CYCLE &gt;= #{monthStart}  
+     		</if>
+     		<if test="monthEnd != null"> 
+        		AND   t.CYCLE &lt;= #{monthEnd}  
+     		</if>
+     			AND   t.PROJECT_ID in (select a.project_id from t_migu_project_base a where 1 = 1
+      		<if test="dept != null">
+	    		AND	 a.PROJECT_DEPT_ID = #{dept}  
+	    	</if>
+	    	<if test="person != null">
+	    		AND	 a.PROJECT_USER_ID = #{person}  
+	    	</if>
+	    		))t3,t_migu_departments t4,t_migu_users t5 where 
+ 				t3.project_dept_id = t4.dept_code  AND t3.project_user_id =t5.user_id 
+ 				order by to_number(t3.project_id)
+  </select>
+  <!--   新增实际收款提交审核记录 -->
+  <insert id="insertHisAudit" parameterType="cn.migu.income.pojo.MiguIncomeManagerHis">
+    insert into T_MIGU_INCOME_MANAGER_HIS (INCOME_MANAGER_HIS_ID,MIGU_INCOME_MANAGER_ID, BILLING_ID, 
+      AUDIT_PERSON, AUDIT_DEPT, CREATE_DATE, DEAL_RESULT,DEAL_OPTIONS,TYPE)
+    values (#{incomeManagerHisId,jdbcType=VARCHAR},'0000', #{billingKey,jdbcType=VARCHAR}, 
+      #{auditPerson,jdbcType=VARCHAR}, #{auditDept,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, 
+      #{dealResult,jdbcType=VARCHAR},#{dealOptions,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR})
+  </insert>
+  <!--   查询实际收款审核记录 -->
+  <select id="queryList" parameterType="java.lang.String" resultMap="auditHisMap">
+  	   SELECT h.income_manager_his_id, h.migu_income_manager_id, d.dept_name as audit_dept,
+        u.user_name as audit_person, h.create_date, h.deal_result, h.deal_options,h.type,h.billing_id
+      FROM T_MIGU_INCOME_MANAGER_HIS h left join t_migu_departments d on h.audit_dept = d.dept_code
+      left join t_migu_users u on u.user_id = h.audit_person
+ 		WHERE h.billing_id=#{0} AND h.TYPE = #{1} order by h.create_date asc 
+  </select>
+  
+  
+  <!-- 导出 -->
+  <select id="queryAllIncomeActual" resultMap="BaseResultMap3" parameterType="java.util.Map">
+	   select t1.* from (
+			select t.*
+  from (select b.billing_key,
+               b.cycle,
+               b.project_id,
+               b.project_name,
+               to_char(b.billing_type) as billing_type,
+               to_char(b.invoice_status) as invoice_status,
+               to_char(a.invoice_code) as invoice_code,
+               to_char(a.invoice_number) as invoice_number,
+               to_char(a.billing_date) as billing_date,
+               to_char(a.total) as total,
+               to_char(e.billtotal) as billtotal,
+               c.income,
+               c.income_date,
+               c.income_status,
+               c.income_option_url,
+               c.audit_department,
+               c.audit_person,
+               c.isneed_bill,
+               c.BZ_CYCLE,
+                 F.INCOME_NAME CLASS_NAME,
+               Z.INCOME_NAME SECTION_NAME,
+               m.DEPT_NAME,
+               U.USER_NAME,
+               P.project_user_id,
+               P.INCOME_CLASS_ID,
+               P.INCOME_SECTION_ID,
+               m.DEPT_CODE
+          from t_migu_income_bill a
+          left join t_migu_income_billing b
+            on a.billing_key = b.billing_key
+          left join t_migu_income_actual c
+            on b.billing_key = c.billing_key and (c.type &lt;&gt; '2' or c.type is null) 
+          left join (select billing_key,sum(total) as billtotal from t_migu_income_bill group by billing_key)e
+            on b.billing_key = e.billing_key
+              LEFT JOIN T_MIGU_PROJECT_BASE P
+            ON a.PROJECT_ID = P.PROJECT_ID
+          LEFT JOIN T_MIGU_DEPARTMENTS m
+            ON P.PROJECT_DEPT_ID = m.DEPT_CODE
+          LEFT JOIN T_MIGU_USERS U
+            ON P.PROJECT_USER_ID = U.USER_ID
+          LEFT JOIN T_MIGU_INCOME_CATEGORIES F
+            ON F.INCOME_ID = P.INCOME_CLASS_ID
+          LEFT JOIN T_MIGU_INCOME_CATEGORIES Z
+            ON (Z.INCOME_ID = P.INCOME_SECTION_ID AND
+               Z.INCOME_PARENT_ID = P.INCOME_CLASS_ID)
+         where b.invoice_status = '00'
+           and (c.isneed_bill &lt;&gt; '0' or c.isneed_bill is null)
+        union all
+        select d.billing_key,
+               d.cycle,
+               d.project_id,
+               d.project_name,
+               '-' as billing_type,
+               '-' as invoice_status,
+               '-' as invoice_code,
+               '-' as invoice_number,
+               '-' as billing_date,
+               '-' as total,
+               '-' as billtotal,
+               d.income,
+               d.income_date,
+               d.income_status,
+               d.income_option_url,
+               d.audit_department,
+               d.audit_person,
+               d.isneed_bill,
+               d.BZ_CYCLE,
+                F.INCOME_NAME CLASS_NAME,
+               Z.INCOME_NAME SECTION_NAME,
+               m.DEPT_NAME,
+               U.USER_NAME,
+               P.project_user_id,
+               P.INCOME_CLASS_ID,
+               P.INCOME_SECTION_ID,
+               m.DEPT_CODE
+          from t_migu_income_actual d
+           LEFT JOIN T_MIGU_PROJECT_BASE P
+            ON d.PROJECT_ID = P.PROJECT_ID
+          LEFT JOIN T_MIGU_DEPARTMENTS m
+            ON P.PROJECT_DEPT_ID = m.DEPT_CODE
+          LEFT JOIN T_MIGU_USERS U
+            ON P.PROJECT_USER_ID = U.USER_ID
+          LEFT JOIN T_MIGU_INCOME_CATEGORIES F
+            ON F.INCOME_ID = P.INCOME_CLASS_ID
+          LEFT JOIN T_MIGU_INCOME_CATEGORIES Z
+            ON (Z.INCOME_ID = P.INCOME_SECTION_ID AND
+               Z.INCOME_PARENT_ID = P.INCOME_CLASS_ID)
+         where d.isneed_bill = '0' and (d.type &lt;&gt; '2' or d.type is null)) t
+		where 1 = 1 
+	     	<if test="q_projectId != null">
+	    		AND   (t.project_id like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="q_projectName != null">
+	    		AND   (t.project_name like concat(concat('%',#{q_projectName}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="q_month != null"> 
+        		AND   t.cycle = #{q_month}
+     		</if>
+     		<if test="q_incomeState != null"> 
+        		AND   t.income_status = #{q_incomeState}  
+     		</if>
+      		<if test="q_userId != null">
+	    		AND   t.project_id in (select t.project_id from t_migu_project_base t where t.project_user_id = #{q_userId})  
+	    	</if>
+	    	<if test="billingKeys != null">
+	    		
+	    		and t.BILLING_KEY in 
+					<foreach item="item" index="index" collection="billingKeys" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+	    	</if>
+	    	   	<if test="q_record_month != null">
+	    		AND   t.BZ_CYCLE =  #{q_record_month}
+	    	</if> 
+	    	<if test="q_incomeClassId != null">
+	    		AND   t.INCOME_CLASS_ID =  #{q_incomeClassId}
+	    	</if>
+	    	<if test="q_incomeSectionId != null">
+	    		AND   t.INCOME_SECTION_ID =  #{q_incomeSectionId}
+	    	</if>
+	    	<if test="q_dept != null">
+	    		AND   t.dept_code =  #{q_dept}
+	    	</if>
+	    	<if test="q_userName != null">
+	    		AND   (t.USER_NAME like concat(concat('%',#{q_userName}),'%') ESCAPE '\') 
+	    	</if>
+	    	<if test="q_bill_num != null">
+	    		AND   t.BILLING_KEY =  #{q_bill_num}
+	    	</if>
+	    	<if test="q_bill_total != null">
+	    		AND   t.billtotal =  #{q_bill_total}
+	    	</if>
+	    	<if test="q_income != null">
+	    		AND   t.income =  #{q_income}
+	    	</if>
+	    	<if test="income_date != null">
+	    		AND   t.income_date =  #{income_date}
+	    	</if>
+	   order by to_number(t.project_id) desc,t.cycle desc,t.billing_key) t1 
+  </select>
+  
+  <!--   查询开票明细 -->
+  <select id="showBilldetail" resultMap="billingDetailMap" parameterType="java.lang.String">
+	    select * from t_migu_income_bill
+ t where t.billing_key = #{billingKey} order by project_id
+  </select>  
+  
+  <!-- 摊分实际收款 -->
+  <select id="callPActualIncomeShare" statementType="CALLABLE" parameterType="java.util.Map">
+  	CALL P_ACTUAL_INCOME_SHARE(#{V_CYCLE,mode=IN,jdbcType=VARCHAR} ,#{V_PROJECT_ID,mode=IN,jdbcType=VARCHAR}  ,
+  	 #{V_BILLING_KEY,mode=IN,jdbcType=VARCHAR} ,#{V_RETURN,mode=OUT,jdbcType=VARCHAR})
+  </select>
+</mapper>

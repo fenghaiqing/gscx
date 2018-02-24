@@ -1,0 +1,32 @@
+.easyui-accordion ul li div{ margin:3px 0; padding:2px 0;}
+.tree-title{ height:23px; line-height:23px}
+.accordion .accordion-header-selected {background: #f0f8f8;}
+.tree-node-selected {background: #B7D2FF;}
+.datagrid-row-selected {background: #f0f8f8;}
+
+.icon-work-add{background:url(../../images/manage/icon/icon-work-add.png) no-repeat;}
+.icon-download{background:url(../../images/manage/icon/download.png) no-repeat;}
+.icon-up{background:url(../../images/manage/icon/up.png) no-repeat;}
+.icon-load{background:url(../../images/manage/icon/load.png) no-repeat;}
+.icon-m_add{background:url(../../images/manage/icon/m_add.png) no-repeat;}
+.icon-m_b_delete{background:url(../../images/manage/icon/m_b_delete.png) no-repeat;}
+.icon-m_delete{background:url(../../images/manage/icon/m_delete.png) no-repeat;}
+.icon-m_edit{background:url(../../images/manage/icon/m_edit.png) no-repeat;}
+.icon-m_query{background:url(../../images/manage/icon/m_query.png) no-repeat;}
+.icon-m_view{background:url(../../images/manage/icon/m_view.png) no-repeat;}
+.icon-m_preview{background:url(../../images/manage/icon/m_preview.png) no-repeat;}
+.icon-m_recommend{background:url(../../images/manage/icon/recommend.png) no-repeat;}
+.icon-m_cancel_recommend{background:url(../../images/manage/icon/cancel_recommend.png) no-repeat;}
+.icon-m_import{background:url(../../images/manage/icon/m_import.png) no-repeat;}
+.icon-m_save{background:url(../../images/manage/icon/m_save.ico) no-repeat;}
+.icon-m_exzam{background:url(../../images/manage/icon/m_exzm.ico) no-repeat;}
+.icon-resourceBatch{background:url(../../images/manage/icon/resourceBatch.png) no-repeat;}
+.icon-app-push-send{background:url(../../images/manage/icon/icon-app-push-send.png) no-repeat;}
+.icon-m-print{background:url(../../images/manage/icon/print.png) no-repeat;}
+.icon-m-merge{background:url(../../images/manage/icon/merge.jpg) no-repeat;}
+.icon-m-un-merge{background:url(../../images/manage/icon/icon_un_merge.png) no-repeat;}
+.icon-m-angle-up{background:url(../../images/manage/icon/angle_up.jpg) no-repeat;}
+.icon-m-angle-down{background:url(../../images/manage/icon/angle_down.jpg) no-repeat;}
+#exportExcel{
+border: 1px solid #A9A9A9;
+}

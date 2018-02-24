@@ -1,0 +1,1263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.migu.income.dao.MiguIncomeManagerMapper">
+  <resultMap id="BaseResultMap" type="cn.migu.income.pojo.MiguIncomeManager">
+  	<result column="RN" property="rn" jdbcType="VARCHAR" />
+    <result column="INCOME_MANAGER_ID" jdbcType="DECIMAL" property="incomeManagerId" />
+    <result column="CYCLE" jdbcType="VARCHAR" property="cycle" />
+    <result column="PROJECT_ID" jdbcType="VARCHAR" property="projectId" />
+    <result column="PROJECT_NAME" jdbcType="VARCHAR" property="projectName" />
+    <result column="ESTIMATE_INCOME" jdbcType="DECIMAL" property="estimateIncome" />
+    <result column="ESTIMATE_EXPLAIN" jdbcType="VARCHAR" property="estimateExplain" />
+    <result column="ESTIMATE_OPTIONS_URL" jdbcType="VARCHAR" property="estimateOptionsUrl" />
+    <result column="EASTIMATE_STATUS" jdbcType="VARCHAR" property="eastimateStatus" />
+    <result column="REAL_INCOME" jdbcType="DECIMAL" property="realIncome" />
+    <result column="REAL_STATUS" jdbcType="VARCHAR" property="realStatus" />
+    <result column="REAL_EXPLAIN" jdbcType="VARCHAR" property="realExplain" />
+    <result column="REAL_OPTIONS_URL" jdbcType="VARCHAR" property="realOptionsUrl" />
+    <result column="DEFERENCE_IN_INCOME" jdbcType="DECIMAL" property="deferenceInIncome" />
+    <result column="BILLING_TYPE" jdbcType="VARCHAR" property="billingType" />
+    <result column="TAXPAYER" jdbcType="VARCHAR" property="taxpayer" />
+    <result column="BILLING_STATUS" jdbcType="VARCHAR" property="billingStatus" />
+    <result column="INCOME" jdbcType="DECIMAL" property="income" />
+    <result column="INCOME_STATUS" jdbcType="VARCHAR" property="incomeStatus" />
+    <result column="INCOME_OPTION_URL" jdbcType="VARCHAR" property="incomeOptionUrl" />
+    <result column="INCOME_DATE" jdbcType="VARCHAR" property="incomeDate" />
+    <result column="LASTE_DATE" jdbcType="VARCHAR" property="lasteDate" />
+    <result column="AUDIT_DEPARTMENT" jdbcType="VARCHAR" property="auditDept" />
+    <result column="AUDIT_PERSON" jdbcType="VARCHAR" property="auditPerson" />
+    <result column="BILLING_TIME" jdbcType="VARCHAR" property="billingTime"/>
+    <result column="BILLING_KEY" jdbcType="VARCHAR" property="billingKey"/>
+    <result column="OFFSET" jdbcType="VARCHAR" property="offset"/>
+    <result column="ESTIMATE_INCOME_TAX" jdbcType="DECIMAL" property="estimateIncomeTax" />
+    <result column="ESTIMATE_EXCLUSIVE_TAX" jdbcType="DECIMAL" property="estimateExclusiveTax" />
+    <result column="ESTIMATE_AMOUNT" jdbcType="DECIMAL" property="estimateAmount" />
+    <result column="REAL_INCOME_TAX" jdbcType="DECIMAL" property="realIncomeTax" />
+    <result column="REAL_EXCLUSIVE_TAX" jdbcType="DECIMAL" property="realExclusiveTax" />
+    <result column="REAL_AMOUNT" jdbcType="DECIMAL" property="realAmount" />
+    <result column="ISNEED_BILL" jdbcType="VARCHAR" property="isNeedBill" />
+    <result column="MERGE_STATUS" jdbcType="VARCHAR" property="mergeStatus" />
+    <result column="MERGE_ID" jdbcType="VARCHAR" property="mergeId" />
+     <result column="income_class_id" jdbcType="VARCHAR" property="incomeClass" />
+    <result column="class_name" jdbcType="VARCHAR" property="className" />
+    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+    <result column="income_section_id" jdbcType="VARCHAR" property="incomeSection" />
+     <result column="section_name" jdbcType="VARCHAR" property="sectionName" />
+      <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+      <result column="user_name" jdbcType="VARCHAR" property="userName" />
+      <result column="r" jdbcType="DECIMAL" property="row" />
+       <result column="BZ_CYCLE" jdbcType="VARCHAR" property="bzCycle" />
+       <result column="BZ_CYCLE_REAL" jdbcType="VARCHAR" property="bzCycleReal" />
+      
+  </resultMap>
+  <sql id="Base_Column_List">
+    INCOME_MANAGER_ID, CYCLE, PROJECT_ID, PROJECT_NAME, ESTIMATE_INCOME, ESTIMATE_EXPLAIN, 
+    ESTIMATE_OPTIONS_URL, EASTIMATE_STATUS, REAL_INCOME, REAL_STATUS, REAL_EXPLAIN, REAL_OPTIONS_URL, 
+    DEFERENCE_IN_INCOME, BILLING_TYPE, TAXPAYER, BILLING_STATUS, INCOME, INCOME_STATUS,
+    INCOME_OPTION_URL, INCOME_DATE, LASTE_DATE,AUDIT_DEPARTMENT,AUDIT_PERSON,BILLING_TIME,
+    BILLING_KEY,OFFSET,ESTIMATE_INCOME_TAX,ESTIMATE_EXCLUSIVE_TAX,ESTIMATE_AMOUNT,REAL_INCOME_TAX,REAL_EXCLUSIVE_TAX,
+    REAL_AMOUNT,ISNEED_BILL,MERGE_STATUS,MERGE_ID,BZ_CYCLE,BZ_CYCLE_REAL
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="java.util.Map">
+  		SELECT  
+  		<include refid="Base_Column_List" />
+  		FROM (SELECT A.*, ROWNUM R FROM T_MIGU_INCOME_MANAGER A ORDER BY B.LASTE_DATE desc) B
+  		WHERE 1=1
+  	<if test="incomeManagerId != null">
+       and B.INCOME_MANAGER_ID=#{incomeManagerId,jdbcType=DECIMAL} 
+      </if>
+      <if test="cycle != null">
+       and B.CYCLE=#{cycle,jdbcType=VARCHAR} 
+      </if>
+      <if test="projectId != null">
+       and B.PROJECT_ID=#{projectId,jdbcType=VARCHAR} 
+      </if>
+      <if test="projectName != null">
+       and B.PROJECT_NAME like concat('%',#{projectName,jdbcType=VARCHAR},'%') 
+      </if>
+    
+      <if test="eastimateStatus != null">
+        and B.EASTIMATE_STATUS  = #{eastimateStatus,jdbcType=CHAR}  
+      </if>
+  
+      <if test="realStatus != null">
+        and B.REAL_STATUS= #{realStatus,jdbcType=CHAR} 
+      </if>
+
+      <if test="billingType != null">
+        and B.BILLING_TYPE= #{billingType,jdbcType=VARCHAR} 
+      </if>
+      <if test="taxpayer != null">
+        and B.TAXPAYER= #{taxpayer,jdbcType=VARCHAR} 
+      </if>
+      <if test="billingStatus != null">
+        and B.BILLING_STATUS = #{billingStatus,jdbcType=CHAR} 
+      </if>
+     
+      <if test="incomeStatus != null">
+        and B.INCOME_STATUS = #{incomeStatus,jdbcType=CHAR} 
+      </if>
+
+      <if test="incomeDate != null">
+        and B.INCOME_DATE = #{incomeDate,jdbcType=VARCHAR} 
+      </if>	
+     <![CDATA[and R>(#{page-1} * #{rows}) and R <= #{page} *#{rows} ]]> 
+  </select>
+  
+  <select id="selectCountByExample" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	SELECT  
+  		count(1)
+  		FROM T_MIGU_INCOME_MANAGER B
+  		WHERE 1=1
+  	<if test="incomeManagerId != null">
+       and B.INCOME_MANAGER_ID=#{incomeManagerId,jdbcType=DECIMAL} 
+      </if>
+      <if test="cycle != null">
+       and B.CYCLE=#{cycle,jdbcType=VARCHAR} 
+      </if>
+      <if test="projectId != null">
+       and B.PROJECT_ID=#{projectId,jdbcType=VARCHAR} 
+      </if>
+      <if test="projectName != null">
+       and B.PROJECT_NAME like concat('%',#{projectName,jdbcType=VARCHAR},'%') 
+      </if>
+    
+      <if test="eastimateStatus != null">
+        and B.EASTIMATE_STATUS  = #{eastimateStatus,jdbcType=CHAR}  
+      </if>
+  
+      <if test="realStatus != null">
+        and B.REAL_STATUS= #{realStatus,jdbcType=CHAR} 
+      </if>
+
+      <if test="billingType != null">
+        and B.BILLING_TYPE= #{billingType,jdbcType=VARCHAR} 
+      </if>
+      <if test="taxpayer != null">
+        and B.TAXPAYER= #{taxpayer,jdbcType=VARCHAR} 
+      </if>
+      <if test="billingStatus != null">
+        and B.BILLING_STATUS = #{billingStatus,jdbcType=CHAR} 
+      </if>
+     
+      <if test="incomeStatus != null">
+        and B.INCOME_STATUS = #{incomeStatus,jdbcType=CHAR} 
+      </if>
+
+      <if test="incomeDate != null">
+        and B.INCOME_DATE = #{incomeDate,jdbcType=VARCHAR} 
+      </if>	
+  </select>
+  
+  <!-- 判断当月是否已新增预估收入  或者是否存在实际收入 -->
+  <select id="selectByUnique" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT INCOME_MANAGER_ID ,CYCLE,PROJECT_ID,PROJECT_NAME 
+  	FROM T_MIGU_INCOME_MANAGER 
+  	WHERE CYCLE=#{0} AND PROJECT_ID=#{1} and (EASTIMATE_STATUS is not null or REAL_STATUS is not null)
+  </select>
+  <!-- 判断是否存在预估收入 和 实际收入 -->
+  <select id="selectRealIncomeByUnique" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT INCOME_MANAGER_ID ,CYCLE,PROJECT_ID,PROJECT_NAME 
+  	FROM T_MIGU_INCOME_MANAGER 
+  	WHERE CYCLE=#{0} AND PROJECT_ID=#{1} and (REAL_STATUS is not null OR  EASTIMATE_STATUS is NOT null)
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_MIGU_INCOME_MANAGER
+    where INCOME_MANAGER_ID = #{incomeManagerId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      This element was generated on Mon Jun 26 17:24:20 CST 2017.
+    -->
+    delete from T_MIGU_INCOME_MANAGER
+    where INCOME_MANAGER_ID = #{incomeManagerId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="cn.migu.income.pojo.MiguIncomeManager">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      This element was generated on Mon Jun 26 17:24:20 CST 2017.
+    -->
+    insert into T_MIGU_INCOME_MANAGER (INCOME_MANAGER_ID, CYCLE, PROJECT_ID, 
+      PROJECT_NAME, ESTIMATE_INCOME, ESTIMATE_EXPLAIN, 
+      ESTIMATE_OPTIONS_URL, EASTIMATE_STATUS, REAL_INCOME, 
+      REAL_STATUS, REAL_EXPLAIN, REAL_OPTIONS_URL, 
+      DEFERENCE_IN_INCOME, BILLING_TYPE, TAXPAYER, 
+      BILLING_STATUS, INCOME, INCOME_STATUS, 
+      INCOME_OPTION_URL, INCOME_DATE, LASTE_DATE,AUDIT_DEPARTMENT,AUDIT_PERSON,OFFSET,MERGE_STATUS,MERGE_ID,BZ_CYCLE
+      )
+    values (#{incomeManagerId,jdbcType=DECIMAL}, #{cycle,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, 
+      #{projectName,jdbcType=VARCHAR}, #{estimateIncome,jdbcType=DECIMAL}, #{estimateExplain,jdbcType=VARCHAR}, 
+      #{estimateOptionsUrl,jdbcType=VARCHAR}, #{eastimateStatus,jdbcType=CHAR}, #{realIncome,jdbcType=DECIMAL}, 
+      #{realStatus,jdbcType=CHAR}, #{realExplain,jdbcType=VARCHAR}, #{realOptionsUrl,jdbcType=VARCHAR}, 
+      #{deferenceInIncome,jdbcType=DECIMAL}, #{billingType,jdbcType=VARCHAR}, #{taxpayer,jdbcType=VARCHAR}, 
+      #{billingStatus,jdbcType=CHAR}, #{income,jdbcType=DECIMAL}, #{incomeStatus,jdbcType=CHAR}, 
+      #{incomeOptionUrl,jdbcType=VARCHAR}, #{incomeDate,jdbcType=VARCHAR}, #{lasteDate,jdbcType=VARCHAR}
+      ,#{auditDept,jdbcType=VARCHAR},#{auditPerson,jdbcType=VARCHAR},#{offset},#{mergeStatus},#{mergeId},#{bzCycle})
+  </insert>
+   <select id="getIncomeManagerId" resultType="java.lang.Long">
+		SELECT SEQ_MIGU_INCOME_MANAGER.NEXTVAL FROM DUAL
+  </select>
+  <insert id="insertSelective" parameterType="cn.migu.income.pojo.MiguIncomeManager">
+    insert into T_MIGU_INCOME_MANAGER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="incomeManagerId != null">
+        INCOME_MANAGER_ID,
+      </if>
+      <if test="cycle != null">
+        CYCLE,
+      </if>
+      <if test="projectId != null">
+        PROJECT_ID,
+      </if>
+      <if test="projectName != null">
+        PROJECT_NAME,
+      </if>
+      <if test="estimateIncome != null">
+        ESTIMATE_INCOME,
+      </if>
+      <if test="estimateExplain != null">
+        ESTIMATE_EXPLAIN,
+      </if>
+      <if test="estimateOptionsUrl != null">
+        ESTIMATE_OPTIONS_URL,
+      </if>
+      <if test="eastimateStatus != null">
+        EASTIMATE_STATUS,
+      </if>
+      <if test="realIncome != null">
+        REAL_INCOME,
+      </if>
+      <if test="realStatus != null">
+        REAL_STATUS,
+      </if>
+      <if test="realExplain != null">
+        REAL_EXPLAIN,
+      </if>
+      <if test="realOptionsUrl != null">
+        REAL_OPTIONS_URL,
+      </if>
+      <if test="deferenceInIncome != null">
+        DEFERENCE_IN_INCOME,
+      </if>
+      <if test="billingType != null">
+        BILLING_TYPE,
+      </if>
+      <if test="taxpayer != null">
+        TAXPAYER,
+      </if>
+      <if test="billingStatus != null">
+        BILLING_STATUS,
+      </if>
+      <if test="income != null">
+        INCOME,
+      </if>
+      <if test="incomeStatus != null">
+        INCOME_STATUS,
+      </if>
+      <if test="incomeOptionUrl != null">
+        INCOME_OPTION_URL,
+      </if>
+      <if test="incomeDate != null">
+        INCOME_DATE,
+      </if>
+      <if test="lasteDate != null">
+        LASTE_DATE,
+      </if>
+       <if test="auditDept != null">
+        AUDIT_DEPARTMENT,
+      </if>
+       <if test="auditPerson != null">
+        AUDIT_PERSON,
+      </if>
+       <if test="offset != null">
+        OFFSET,
+      </if>
+      <if test="estimateIncomeTax != null">
+        ESTIMATE_INCOME_TAX,
+      </if>
+      <if test="estimateExclusiveTax != null">
+        ESTIMATE_EXCLUSIVE_TAX,
+      </if>
+      <if test="estimateAmount != null">
+        ESTIMATE_AMOUNT,
+      </if>
+      <if test="realIncomeTax != null">
+        REAL_INCOME_TAX,
+      </if>
+      <if test="realExclusiveTax != null">
+        REAL_EXCLUSIVE_TAX,
+      </if>
+      <if test="realAmount != null">
+        REAL_AMOUNT,
+      </if>
+      <if test="isNeedBill != null">
+        ISNEED_BILL,
+      </if>
+      <if test="mergeStatus != null">
+        MERGE_STATUS,
+      </if>
+      <if test="mergeId != null">
+        MERGE_ID
+      </if>
+       <if test="bzCycle != null">
+        BZ_CYCLE
+      </if>
+       <if test="bzCycleReal != null">
+        BZ_CYCLE_REAL
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="incomeManagerId != null">
+        #{incomeManagerId,jdbcType=DECIMAL},
+      </if>
+      <if test="cycle != null">
+        #{cycle,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="estimateIncome != null">
+        #{estimateIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="estimateExplain != null">
+        #{estimateExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="estimateOptionsUrl != null">
+        #{estimateOptionsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="eastimateStatus != null">
+        #{eastimateStatus,jdbcType=CHAR},
+      </if>
+      <if test="realIncome != null">
+        #{realIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="realStatus != null">
+        #{realStatus,jdbcType=CHAR},
+      </if>
+      <if test="realExplain != null">
+        #{realExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="realOptionsUrl != null">
+        #{realOptionsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="deferenceInIncome != null">
+        #{deferenceInIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="billingType != null">
+        #{billingType,jdbcType=VARCHAR},
+      </if>
+      <if test="taxpayer != null">
+        #{taxpayer,jdbcType=VARCHAR},
+      </if>
+      <if test="billingStatus != null">
+        #{billingStatus,jdbcType=CHAR},
+      </if>
+      <if test="income != null">
+        #{income,jdbcType=DECIMAL},
+      </if>
+      <if test="incomeStatus != null">
+        #{incomeStatus,jdbcType=CHAR},
+      </if>
+      <if test="incomeOptionUrl != null">
+        #{incomeOptionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeDate != null">
+        #{incomeDate,jdbcType=VARCHAR},
+      </if>
+      <if test="lasteDate != null">
+        #{lasteDate,jdbcType=VARCHAR},
+      </if>
+       <if test="auditDept != null">
+        #{auditDept,jdbcType=VARCHAR},
+      </if>
+       <if test="auditPerson != null">
+        #{auditPerson,jdbcType=VARCHAR},
+      </if>
+       <if test="offset != null">
+        #{offset,jdbcType=VARCHAR},
+      </if>
+      <if test="estimateIncomeTax != null">
+        #{estimateIncomeTax,jdbcType=DECIMAL},
+      </if>
+      <if test="estimateExclusiveTax != null">
+        #{estimateExclusiveTax,jdbcType=DECIMAL},
+      </if>
+      <if test="estimateAmount != null">
+        #{estimateAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="realIncomeTax != null">
+        #{realIncomeTax,jdbcType=DECIMAL},
+      </if>
+      <if test="realExclusiveTax != null">
+        #{realExclusiveTax,jdbcType=DECIMAL},
+      </if>
+      <if test="realAmount != null">
+        #{realAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="isNeedBill != null">
+        #{isNeedBill,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeStatus != null">
+         #{mergeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeId != null">
+         #{mergeId,jdbcType=VARCHAR},
+      </if>
+       <if test="bzCycle != null">
+         #{bzCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="bzCycleReal != null">
+         #{bzCycleReal,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="cn.migu.income.pojo.MiguIncomeManager">
+   
+    update T_MIGU_INCOME_MANAGER
+    <set>
+      <if test="cycle != null">
+        CYCLE = #{cycle,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="estimateIncome != null">
+        ESTIMATE_INCOME = #{estimateIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="estimateExplain != null">
+        ESTIMATE_EXPLAIN = #{estimateExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="estimateOptionsUrl != null">
+        ESTIMATE_OPTIONS_URL = #{estimateOptionsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="eastimateStatus != null">
+        EASTIMATE_STATUS = #{eastimateStatus,jdbcType=CHAR},
+      </if>
+      <if test="realIncome != null">
+        REAL_INCOME = #{realIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="realStatus != null">
+        REAL_STATUS = #{realStatus,jdbcType=CHAR},
+      </if>
+      <if test="realExplain != null">
+        REAL_EXPLAIN = #{realExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="realOptionsUrl != null">
+        REAL_OPTIONS_URL = #{realOptionsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="deferenceInIncome != null">
+        DEFERENCE_IN_INCOME = #{deferenceInIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="billingType != null">
+        BILLING_TYPE = #{billingType,jdbcType=VARCHAR},
+      </if>
+      <if test="taxpayer != null">
+        TAXPAYER = #{taxpayer,jdbcType=VARCHAR},
+      </if>
+      <if test="billingStatus != null">
+        BILLING_STATUS = #{billingStatus,jdbcType=CHAR},
+      </if>
+      <if test="income != null">
+        INCOME = #{income,jdbcType=DECIMAL},
+      </if>
+      <if test="incomeStatus != null">
+        INCOME_STATUS = #{incomeStatus,jdbcType=CHAR},
+      </if>
+      <if test="incomeOptionUrl != null">
+        INCOME_OPTION_URL = #{incomeOptionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeDate != null">
+        INCOME_DATE = #{incomeDate,jdbcType=VARCHAR},
+      </if>
+      <if test="lasteDate != null">
+        LASTE_DATE = #{lasteDate,jdbcType=VARCHAR},
+      </if>
+       <if test="auditDept != null">
+       AUDIT_DEPARTMENT= #{auditDept,jdbcType=VARCHAR},
+      </if>
+       <if test="auditPerson != null">
+       AUDIT_PERSON= #{auditPerson,jdbcType=VARCHAR},
+      </if>
+       <if test="offset != null">
+       OFFSET= #{offset,jdbcType=VARCHAR},
+      </if>
+      <if test="estimateIncomeTax != null">
+        ESTIMATE_INCOME_TAX = #{estimateIncomeTax,jdbcType=DECIMAL},
+      </if>
+      <if test="estimateExclusiveTax != null">
+        ESTIMATE_EXCLUSIVE_TAX = #{estimateExclusiveTax,jdbcType=DECIMAL},
+      </if>
+      <if test="estimateAmount != null">
+        ESTIMATE_AMOUNT = #{estimateAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="estimateIncomeTax != null">
+        REAL_INCOME_TAX = #{realIncomeTax,jdbcType=DECIMAL},
+      </if>
+      <if test="estimateExclusiveTax != null">
+        REAL_EXCLUSIVE_TAX = #{realExclusiveTax,jdbcType=DECIMAL},
+      </if>
+      <if test="estimateAmount != null">
+        REAL_AMOUNT = #{realAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="isNeedBill != null">
+        ISNEED_BILL = #{isNeedBill,jdbcType=VARCHAR},
+      </if>
+       <if test="mergeStatus != null">
+          MERGE_STATUS= #{mergeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeId != null">
+       	MERGE_ID = #{mergeId,jdbcType=VARCHAR},
+      </if>
+       <if test="bzCycle != null">
+       	BZ_CYCLE = #{bzCycle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where INCOME_MANAGER_ID = #{incomeManagerId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.migu.income.pojo.MiguIncomeManager">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      This element was generated on Mon Jun 26 17:24:20 CST 2017.
+    -->
+    update T_MIGU_INCOME_MANAGER
+    set CYCLE = #{cycle,jdbcType=VARCHAR},
+      PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      ESTIMATE_INCOME = #{estimateIncome,jdbcType=DECIMAL},
+      ESTIMATE_EXPLAIN = #{estimateExplain,jdbcType=VARCHAR},
+      ESTIMATE_OPTIONS_URL = #{estimateOptionsUrl,jdbcType=VARCHAR},
+      EASTIMATE_STATUS = #{eastimateStatus,jdbcType=CHAR},
+      REAL_INCOME = #{realIncome,jdbcType=DECIMAL},
+      REAL_STATUS = #{realStatus,jdbcType=CHAR},
+      REAL_EXPLAIN = #{realExplain,jdbcType=VARCHAR},
+      REAL_OPTIONS_URL = #{realOptionsUrl,jdbcType=VARCHAR},
+      DEFERENCE_IN_INCOME = #{deferenceInIncome,jdbcType=DECIMAL},
+      BILLING_TYPE = #{billingType,jdbcType=VARCHAR},
+      TAXPAYER = #{taxpayer,jdbcType=VARCHAR},
+      BILLING_STATUS = #{billingStatus,jdbcType=CHAR},
+      INCOME = #{income,jdbcType=DECIMAL},
+      INCOME_STATUS = #{incomeStatus,jdbcType=CHAR},
+      INCOME_OPTION_URL = #{incomeOptionUrl,jdbcType=VARCHAR},
+      INCOME_DATE = #{incomeDate,jdbcType=VARCHAR},
+      LASTE_DATE = #{lasteDate,jdbcType=VARCHAR},
+      AUDIT_DEPARTMENT= #{auditDept,jdbcType=VARCHAR},
+      AUDIT_PERSON= #{auditPerson,jdbcType=VARCHAR},
+      OFFSET= #{offset,jdbcType=VARCHAR},
+      ESTIMATE_INCOME_TAX = #{estimateIncomeTax,jdbcType=DECIMAL},
+      ESTIMATE_EXCLUSIVE_TAX = #{estimateExclusiveTax,jdbcType=DECIMAL},
+      ESTIMATE_AMOUNT = #{estimateAmount,jdbcType=DECIMAL},
+      REAL_INCOME_TAX = #{realIncomeTax,jdbcType=DECIMAL},
+      REAL_EXCLUSIVE_TAX = #{realExclusiveTax,jdbcType=DECIMAL},
+      REAL_AMOUNT = #{realAmount,jdbcType=DECIMAL},
+      ISNEED_BILL = #{isNeedBill,jdbcType=VARCHAR},
+      MERGE_STATUS= #{mergeStatus,jdbcType=VARCHAR},
+      MERGE_ID = #{mergeId,jdbcType=VARCHAR},
+      BZ_CYCLE = #{bzCycle,jdbcType=VARCHAR},
+      BZ_CYCLE_REAL = #{bzCycleReal,jdbcType=VARCHAR}
+    where INCOME_MANAGER_ID = #{incomeManagerId,jdbcType=DECIMAL}
+  </update>
+
+  <update id="updateBillKey">
+    UPDATE T_MIGU_INCOME_MANAGER
+    SET (BILLING_KEY ,BILLING_TYPE)= (SELECT #{2},substr(#{2},0,1) FROM dual)
+    where PROJECT_ID = #{0}
+    and INCOME_MANAGER_ID = #{1}
+  </update>
+  
+  <!-- 查询实际收入条数 -->
+  <select id="queryTotal" resultType="java.lang.Integer" parameterType="java.util.Map" >
+  	   SELECT COUNT(1) FROM T_MIGU_INCOME_MANAGER T LEFT JOIN T_MIGU_PROJECT_BASE P ON T.PROJECT_ID = P.PROJECT_ID
+    LEFT JOIN T_MIGU_DEPARTMENTS D ON P.PROJECT_DEPT_ID = D.DEPT_CODE LEFT JOIN T_MIGU_USERS U ON P.PROJECT_USER_ID = U.USER_ID LEFT JOIN 
+    T_MIGU_INCOME_CATEGORIES C ON C.INCOME_ID = P.INCOME_CLASS_ID LEFT JOIN T_MIGU_INCOME_CATEGORIES Z ON (Z.INCOME_ID = P.INCOME_SECTION_ID AND
+    Z.INCOME_PARENT_ID = P.INCOME_CLASS_ID) 
+     WHERE  (T.MERGE_STATUS &lt;&gt; '2' OR T.MERGE_STATUS IS NULL)
+        <if test="q_projectId != null">
+          AND   (T.PROJECT_ID LIKE CONCAT(CONCAT('%',#{q_projectId}),'%') ESCAPE '\')  
+      	</if>
+         <if test="q_projectName != null">
+          AND   (T.PROJECT_NAME LIKE CONCAT(CONCAT('%',#{q_projectName}),'%') ESCAPE '\')  
+        </if>
+       <if test="q_month != null">
+            AND   T.CYCLE = #{q_month}
+         </if>
+        <if test="q_estimateState != null">
+            AND (T.EASTIMATE_STATUS = #{q_estimateState}  OR T.EASTIMATE_STATUS IS NULL)
+        </if>
+         <if test="realIncomeStatus != null">
+            AND   T.REAL_STATUS = #{realIncomeStatus}  
+     	</if>
+         <if test="q_userId != null">
+          AND   P.PROJECT_USER_ID = #{q_userId}  
+         </if>
+         <if test="q_userName != null">
+          AND    (U.USER_NAME LIKE CONCAT(CONCAT('%',#{q_userName}),'%') ESCAPE '\') 
+        </if>
+         <if test="q_incomeClassId != null">
+          AND   P.INCOME_CLASS_ID = #{q_incomeClassId}
+        </if>
+         <if test="q_incomeSectionId != null">
+          AND   P.INCOME_SECTION_ID = #{q_incomeSectionId}
+         </if>
+         <if test="q_dept != null">
+          AND   D.DEPT_CODE = #{q_dept}
+ 		</if>
+         <if test="est_income != null">
+          AND   T.REAL_INCOME = #{est_income}
+        </if>
+         <if test="est_exclusive_tax != null">
+          AND  T.REAL_EXCLUSIVE_TAX = #{est_exclusive_tax}
+        </if>
+         <if test="q_cx != null">
+          AND  T.OFFSET = #{q_cx}
+       </if>
+         <if test="q_bill != null">
+          AND  T.ISNEED_BILL = #{q_bill}
+        </if>
+         <if test="q_merge != null">
+          AND  T.MERGE_STATUS = #{q_merge}
+       </if>
+         <if test="bzCycleReal != null">
+          AND  T.BZ_CYCLE_REAL = #{bzCycleReal}
+         </if>
+ 	  </select>
+
+  <select id="queryDrawBillTotal" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*) from (select t.* from T_MIGU_INCOME_MANAGER t where REAL_STATUS = '2' AND ISNEED_BILL ='1'
+    AND (t.merge_status &lt;&gt; '1' or t.merge_status is null)
+    <if test="q_projectId != null">
+      AND (PROJECT_ID like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')
+    </if>
+    <if test="q_projectName != null">
+      AND (PROJECT_NAME like concat(concat('%',#{q_projectName}),'%') ESCAPE '\')
+    </if>
+    <if test="q_userId != null">
+      AND PROJECT_ID in (select a.project_id from t_migu_project_base a where a.project_user_id = #{q_userId})
+    </if>
+    )
+  </select>
+  
+   <select id="queryNoBillTotal" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*) from (select t.* from T_MIGU_INCOME_MANAGER t where REAL_STATUS = '2' AND ISNEED_BILL ='0'
+        AND (t.merge_status &lt;&gt; '1' or t.merge_status is null)
+    <if test="q_projectId != null">
+      AND (PROJECT_ID like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')
+    </if>
+    <if test="q_projectName != null">
+      AND (PROJECT_NAME like concat(concat('%',#{q_projectName}),'%') ESCAPE '\')
+    </if>
+    <if test="q_userId != null">
+      AND PROJECT_ID in (select a.project_id from t_migu_project_base a where a.project_user_id = #{q_userId})
+    </if>
+    )
+  </select>
+  
+  <!-- 实际收入查询 -->
+  <select id="queryAllRealIncome" resultMap="BaseResultMap" parameterType="java.util.Map">
+	SELECT*FROM ( SELECT M.* ,ROWNUM R FROM (
+ 	SELECT T.*, P.INCOME_CLASS_ID, C.INCOME_NAME CLASS_NAME, P.INCOME_SECTION_ID,Z.INCOME_NAME SECTION_NAME,
+    D.DEPT_NAME,D.DEPT_CODE,U.USER_ID,U.USER_NAME ,P.PROJECT_USER_ID FROM T_MIGU_INCOME_MANAGER T LEFT JOIN T_MIGU_PROJECT_BASE P ON T.PROJECT_ID = P.PROJECT_ID
+    LEFT JOIN T_MIGU_DEPARTMENTS D ON P.PROJECT_DEPT_ID = D.DEPT_CODE LEFT JOIN T_MIGU_USERS U ON P.PROJECT_USER_ID = U.USER_ID LEFT JOIN 
+    T_MIGU_INCOME_CATEGORIES C ON C.INCOME_ID = P.INCOME_CLASS_ID LEFT JOIN T_MIGU_INCOME_CATEGORIES Z ON (Z.INCOME_ID = P.INCOME_SECTION_ID AND
+    Z.INCOME_PARENT_ID = P.INCOME_CLASS_ID) 
+     WHERE  (T.MERGE_STATUS  &lt;&gt; '2' OR T.MERGE_STATUS IS NULL)
+        <if test="q_projectId != null">
+          AND   (T.PROJECT_ID LIKE CONCAT(CONCAT('%',#{q_projectId}),'%') ESCAPE '\')  
+      	</if>
+         <if test="q_projectName != null">
+          AND   (T.PROJECT_NAME LIKE CONCAT(CONCAT('%',#{q_projectName}),'%') ESCAPE '\')  
+        </if>
+       <if test="q_month != null">
+            AND   T.CYCLE = #{q_month}
+         </if>
+        <if test="q_estimateState != null">
+            AND (T.EASTIMATE_STATUS = #{q_estimateState}  OR T.EASTIMATE_STATUS IS NULL)
+        </if>
+         <if test="realIncomeStatus != null">
+            AND   T.REAL_STATUS = #{realIncomeStatus}  
+     	</if>
+         <if test="q_userId != null">
+          AND   P.PROJECT_USER_ID = #{q_userId}  
+         </if>
+         <if test="q_userName != null">
+          AND    (U.USER_NAME LIKE CONCAT(CONCAT('%',#{q_userName}),'%') ESCAPE '\') 
+        </if>
+         <if test="q_incomeClassId != null">
+          AND   P.INCOME_CLASS_ID = #{q_incomeClassId}
+        </if>
+         <if test="q_incomeSectionId != null">
+          AND   P.INCOME_SECTION_ID = #{q_incomeSectionId}
+         </if>
+         <if test="q_dept != null">
+          AND   D.DEPT_CODE = #{q_dept}
+ 		</if>
+         <if test="est_income != null">
+          AND   T.REAL_INCOME = #{est_income}
+        </if>
+         <if test="est_exclusive_tax != null">
+          AND  T.REAL_EXCLUSIVE_TAX = #{est_exclusive_tax}
+        </if>
+         <if test="q_cx != null">
+          AND  T.OFFSET = #{q_cx}
+       </if>
+         <if test="q_bill != null">
+          AND  T.ISNEED_BILL = #{q_bill}
+        </if>
+         <if test="q_merge != null">
+          AND  T.MERGE_STATUS = #{q_merge}
+       </if>
+         <if test="bzCycleReal != null">
+          AND  T.BZ_CYCLE_REAL = #{bzCycleReal}
+         </if>
+    	ORDER BY T.CYCLE
+     	) M 
+     ) WHERE <![CDATA[R > (#{curPage}-1) * #{pageSize} AND R <= (#{curPage}) * #{pageSize}]]>
+  </select>
+
+	<select id="selectEstimateIncome" resultMap="BaseResultMap" parameterType="java.util.Map">
+	    select * from ( select z.*,rownum r from (
+		select m.* from (select t.*, p.income_class_id, c.income_name class_name, p.income_section_id,z.income_name section_name,
+		d.dept_name,d.dept_code,u.user_name,p.project_user_id from T_MIGU_INCOME_MANAGER t left join t_migu_project_base p on t.project_id = p.project_id
+		left join t_migu_departments d on p.project_dept_id = d.dept_code left join t_migu_users u on p.project_user_id = u.user_id left join 
+		t_migu_income_categories c on c.income_id = p.income_class_id left join t_migu_income_categories z on (z.income_id = p.income_section_id and
+		z.income_parent_id = p.income_class_id) order by t.CYCLE) m ) z
+		where 1=1 	
+		<if test="q_projectId != null">
+	    		AND   (PROJECT_ID like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="q_projectName != null">
+	    		AND   (PROJECT_NAME like concat(concat('%',#{q_projectName}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="q_month != null"> 
+        		AND   CYCLE = #{q_month}
+     		</if>
+     		<if test="q_estimateState != null"> 
+        		AND (EASTIMATE_STATUS = #{q_estimateState}  or EASTIMATE_STATUS is null)
+     		</if>
+        		AND    ESTIMATE_INCOME is not null
+      		<if test="q_userId != null">
+	    		AND   project_user_id = #{q_userId}
+	    	</if>
+	    	
+	    	<if test="q_userName != null">
+	    		AND    (user_name like concat(concat('%',#{q_userName}),'%') ESCAPE '\') 
+	    	</if>
+	    	<if test="q_incomeClassId != null">
+	    		AND   income_class_id = #{q_incomeClassId}
+	    	</if>
+	    	<if test="q_incomeSectionId != null">
+	    		AND   income_section_id = #{q_incomeSectionId}
+	    	</if>
+	    	<if test="q_dept != null">
+	    		AND   dept_code = #{q_dept}
+	    	</if>
+	    	<if test="q_dept != null">
+	    		AND   dept_code = #{q_dept}
+	    	</if>
+	    	<if test="est_income != null">
+	    		AND   ESTIMATE_INCOME = #{est_income}
+	    	</if>
+	    	<if test="est_exclusive_tax != null">
+	    		AND  ESTIMATE_EXCLUSIVE_TAX = #{est_exclusive_tax}
+	    	</if>
+	    	<if test="bzCycle != null">
+	    		AND  BZ_CYCLE = #{bzCycle}
+	    	</if>
+	    	)
+ 			where r between (#{curPage}-1) * #{pageSize} + 1 and (#{curPage}) * #{pageSize}
+  </select>
+
+
+		<select id="queryRecodes" resultType="java.lang.Integer" parameterType="java.util.Map">
+	   
+		select COUNT(1) from (select t.*, p.income_class_id, c.income_name class_name, p.income_section_id,z.income_name section_name,
+		d.dept_name,d.dept_code,u.user_name,p.project_user_id from T_MIGU_INCOME_MANAGER t left join t_migu_project_base p on t.project_id = p.project_id
+		left join t_migu_departments d on p.project_dept_id = d.dept_code left join t_migu_users u on p.project_user_id = u.user_id left join 
+		t_migu_income_categories c on c.income_id = p.income_class_id left join t_migu_income_categories z on (z.income_id = p.income_section_id and
+		z.income_parent_id = p.income_class_id) order by t.CYCLE) m 
+		where 1=1 	
+		<if test="q_projectId != null">
+	    		AND   (PROJECT_ID like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="q_projectName != null">
+	    		AND   (PROJECT_NAME like concat(concat('%',#{q_projectName}),'%') ESCAPE '\')  
+	    	</if>
+	    	<if test="q_month != null"> 
+        		AND   CYCLE = #{q_month}
+     		</if>
+     		<if test="q_estimateState != null"> 
+        		AND (EASTIMATE_STATUS = #{q_estimateState}  or EASTIMATE_STATUS is null)
+     		</if>
+        		AND    ESTIMATE_INCOME is not null
+      		<if test="q_userId != null">
+	    		AND   project_user_id = #{q_userId}
+	    	</if>
+	    	<if test="q_userName != null">
+	    		AND    (user_name like concat(concat('%',#{q_userName}),'%') ESCAPE '\') 
+	    	</if>
+	    	<if test="q_incomeClassId != null">
+	    		AND   income_class_id = #{q_incomeClassId}
+	    	</if>
+	    	<if test="q_incomeSectionId != null">
+	    		AND   income_section_id = #{q_incomeSectionId}
+	    	</if>
+	    	<if test="q_dept != null">
+	    		AND   dept_code = #{q_dept}
+	    	</if>
+	    	<if test="q_dept != null">
+	    		AND   dept_code = #{q_dept}
+	    	</if>
+	    	<if test="est_income != null">
+	    		AND   ESTIMATE_INCOME = #{est_income}
+	    	</if>
+	    	<if test="est_exclusive_tax != null">
+	    		AND  ESTIMATE_EXCLUSIVE_TAX = #{est_exclusive_tax}
+	    	</if>
+	    	<if test="bzCycle != null">
+	    		AND  BZ_CYCLE = #{bzCycle}
+	    	</if>
+  </select>
+
+  <!-- 查询需要开票的审核通过的实际收入 -->
+  <select id="queryAllDrawBillIncome" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select t11.* from(select t1.*,rownum rn from (select
+    t.INCOME_MANAGER_ID,
+    t.CYCLE,
+    t.PROJECT_ID,
+    t.PROJECT_NAME,
+    t.ESTIMATE_INCOME,
+    b.comments ESTIMATE_EXPLAIN,
+    t.ESTIMATE_OPTIONS_URL,
+    t.EASTIMATE_STATUS,
+    t.REAL_INCOME,
+    t.REAL_STATUS,
+    t.REAL_EXPLAIN,
+    t.REAL_OPTIONS_URL,
+    t.DEFERENCE_IN_INCOME,
+    t.BILLING_TYPE,
+    t.TAXPAYER,
+    t.BILLING_STATUS,
+    t.INCOME,
+    t.INCOME_STATUS,
+    t.INCOME_OPTION_URL,
+    t.INCOME_DATE,
+    t.LASTE_DATE,
+    b.AUDIT_DEPARTMENT,
+    b.AUDIT_PERSON,
+    t.BILLING_TIME,
+    t.BILLING_KEY
+    from T_MIGU_INCOME_MANAGER t
+    , (select project_id,
+    comments,
+    user_id,
+    audit_person,
+    t22.dept_name audit_department
+    from (select t1.project_id,
+    t1.comments,
+    t2.user_id user_id,
+    t2.user_name audit_person,
+    t1.project_dept_id audit_department
+    from t_migu_project_base t1
+    left join T_MIGU_USERS t2
+    on t1.project_user_id = t2.user_id) t21
+    left join T_MIGU_DEPARTMENTS t22
+    on t21.audit_department = t22.dept_code) b
+    where t.REAL_STATUS = '2'
+    AND t.ISNEED_BILL = '1'
+    AND (t.merge_status &lt;&gt; '1' or t.merge_status is null)
+    AND t.project_id = b.project_id
+    <if test="q_projectId != null">
+      AND (t.PROJECT_ID like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')
+    </if>
+    <if test="q_projectName != null">
+      AND (t.PROJECT_NAME like concat(concat('%',#{q_projectName}),'%') ESCAPE '\')
+    </if>
+    <if test="q_userId != null">
+      AND b.user_id = #{q_userId}
+    </if>
+    order by t.CYCLE) t1) t11 where rn between (#{page}-1) * #{rows} + 1 and (#{page}) * #{rows}
+  </select>
+  
+  <!-- 查询不需要开票的审核通过的实际收入 -->
+  <select id="queryAllNoBillIncome" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select t11.* from(select t1.*,rownum rn from (select
+    t.INCOME_MANAGER_ID,
+    t.CYCLE,
+    t.PROJECT_ID,
+    t.PROJECT_NAME,
+    t.ESTIMATE_INCOME,
+    b.comments ESTIMATE_EXPLAIN,
+    t.ESTIMATE_OPTIONS_URL,
+    t.EASTIMATE_STATUS,
+    t.REAL_INCOME,
+    t.REAL_STATUS,
+    t.REAL_EXPLAIN,
+    t.REAL_OPTIONS_URL,
+    t.DEFERENCE_IN_INCOME,
+    t.BILLING_TYPE,
+    t.TAXPAYER,
+    t.BILLING_STATUS,
+    t.INCOME,
+    t.INCOME_STATUS,
+    t.INCOME_OPTION_URL,
+    t.INCOME_DATE,
+    t.LASTE_DATE,
+    b.AUDIT_DEPARTMENT,
+    b.AUDIT_PERSON,
+    t.BILLING_TIME,
+    t.BILLING_KEY
+    from T_MIGU_INCOME_MANAGER t
+    , (select project_id,
+    comments,
+    user_id,
+    audit_person,
+    t22.dept_name audit_department
+    from (select t1.project_id,
+    t1.comments,
+    t2.user_id user_id,
+    t2.user_name audit_person,
+    t1.project_dept_id audit_department
+    from t_migu_project_base t1
+    left join T_MIGU_USERS t2
+    on t1.project_user_id = t2.user_id) t21
+    left join T_MIGU_DEPARTMENTS t22
+    on t21.audit_department = t22.dept_code) b
+    where t.REAL_STATUS = '2'
+    AND t.ISNEED_BILL = '0'
+    AND (t.merge_status &lt;&gt; '1' or t.merge_status is null)
+    AND t.project_id = b.project_id
+    <if test="q_projectId != null">
+      AND (t.PROJECT_ID like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')
+    </if>
+    <if test="q_projectName != null">
+      AND (t.PROJECT_NAME like concat(concat('%',#{q_projectName}),'%') ESCAPE '\')
+    </if>
+    <if test="q_userId != null">
+      AND b.user_id = #{q_userId}
+    </if>
+    order by t.CYCLE) t1) t11 where rn between (#{page}-1) * #{rows} + 1 and (#{page}) * #{rows}
+  </select>
+  
+  <select id="selectExamineObj" resultMap="BaseResultMap" parameterType="java.lang.String">
+  		select*from t_migu_income_manager t where t.income_manager_id=#{0} and t.audit_person=#{1}
+  </select>
+  
+  <select id="queryAllBill" resultMap="BaseResultMap">
+    select t1.*, rownum rn
+	  from (select t.*
+	          from T_MIGU_INCOME_MANAGER t
+	         where BILLING_KEY is not null
+	         order by t.CYCLE) t1
+  </select>
+  
+  <delete id="deleteIncome_manager_his">
+  	delete from t_migu_income_manager_his a where a.migu_income_manager_id = #{incomeManagerId}
+  </delete>
+  
+  <delete id="deleteIncome_detail">
+  	delete from t_migu_income_detail b where b.income_manager_id =  #{incomeManagerId}
+  </delete>
+  
+  <delete id="deleteIncome_manager">
+  	delete from t_migu_income_manager c where c.income_manager_id = #{incomeManagerId}
+  </delete>
+  
+  <select id="queryAllIncomeManager" resultMap="BaseResultMap" parameterType="java.util.Map">
+	     select *from (
+    select m.*,rownum r from (select t.*, p.income_class_id, c.income_name class_name, p.income_section_id,z.income_name section_name,
+    d.dept_name,d.dept_code,u.user_id,u.user_name,p.project_user_id from T_MIGU_INCOME_MANAGER t left join t_migu_project_base p on t.project_id = p.project_id
+    left join t_migu_departments d on p.project_dept_id = d.dept_code left join t_migu_users u on p.project_user_id = u.user_id left join 
+    t_migu_income_categories c on c.income_id = p.income_class_id left join t_migu_income_categories z on (z.income_id = p.income_section_id and
+    z.income_parent_id = p.income_class_id) order by t.CYCLE) m )
+		where 1=1 	
+         <if test="q_projectId != null">
+          AND   (PROJECT_ID like concat(concat('%',#{q_projectId}),'%') ESCAPE '\')  
+        </if>
+        <if test="q_projectName != null">
+          AND   (PROJECT_NAME like concat(concat('%',#{q_projectName}),'%') ESCAPE '\')  
+        </if>
+      	<if test="q_month != null"> 
+        		AND   CYCLE = #{q_month}
+     		</if>
+     		<if test="q_estimateState != null"> 
+        		AND (EASTIMATE_STATUS = #{q_estimateState})
+     		</if>
+     		<if test="incomeManagerIds != null"> 
+				and income_manager_id in
+				    <foreach collection="incomeManagerIds" item = "incomeManagerId" open="(" separator="," close=")">
+				  		#{incomeManagerId}
+				    </foreach>
+     		</if>
+        		AND  ESTIMATE_INCOME is not null
+     		
+      		<if test="q_userId != null">
+	    		AND   project_user_id = #{q_userId}  
+	    	</if>
+   			<if test="q_userName != null">
+	    		AND    (user_name like concat(concat('%',#{q_userName}),'%') ESCAPE '\') 
+	    	</if>
+	    	<if test="q_incomeClassId != null">
+	    		AND   income_class_id = #{q_incomeClassId}
+	    	</if>
+	    	<if test="q_incomeSectionId != null">
+	    		AND   income_section_id = #{q_incomeSectionId}
+	    	</if>
+	    	<if test="q_dept != null">
+	    		AND   dept_code = #{q_dept}
+	    	</if>
+	    	<if test="est_income != null">
+	    		AND   ESTIMATE_INCOME = #{est_income}
+	    	</if>
+	    	<if test="est_exclusive_tax != null">
+	    		AND  ESTIMATE_EXCLUSIVE_TAX = #{est_exclusive_tax}
+	    	</if>
+	    	<if test="bzCycle != null">
+	    		AND  BZ_CYCLE = #{bzCycle}
+	    	</if>
+  </select>
+  
+  <!-- 查询导出的实际收入 -->
+  <select id="queryAllRealIncomeManager" resultMap="BaseResultMap" parameterType="java.util.Map">
+  SELECT*FROM ( SELECT M.* ,ROWNUM R FROM (
+ 	SELECT T.*, P.INCOME_CLASS_ID, C.INCOME_NAME CLASS_NAME, P.INCOME_SECTION_ID,Z.INCOME_NAME SECTION_NAME,
+    D.DEPT_NAME,D.DEPT_CODE,U.USER_ID,U.USER_NAME ,P.PROJECT_USER_ID FROM T_MIGU_INCOME_MANAGER T LEFT JOIN T_MIGU_PROJECT_BASE P ON T.PROJECT_ID = P.PROJECT_ID
+    LEFT JOIN T_MIGU_DEPARTMENTS D ON P.PROJECT_DEPT_ID = D.DEPT_CODE LEFT JOIN T_MIGU_USERS U ON P.PROJECT_USER_ID = U.USER_ID LEFT JOIN 
+    T_MIGU_INCOME_CATEGORIES C ON C.INCOME_ID = P.INCOME_CLASS_ID LEFT JOIN T_MIGU_INCOME_CATEGORIES Z ON (Z.INCOME_ID = P.INCOME_SECTION_ID AND
+    Z.INCOME_PARENT_ID = P.INCOME_CLASS_ID) 
+     WHERE  (T.MERGE_STATUS  &lt;&gt; '2' OR T.MERGE_STATUS IS NULL)
+        <if test="q_projectId != null">
+          AND   (T.PROJECT_ID LIKE CONCAT(CONCAT('%',#{q_projectId}),'%') ESCAPE '\')  
+      	</if>
+         <if test="q_projectName != null">
+          AND   (T.PROJECT_NAME LIKE CONCAT(CONCAT('%',#{q_projectName}),'%') ESCAPE '\')  
+        </if>
+       <if test="q_month != null">
+            AND   T.CYCLE = #{q_month}
+         </if>
+            AND (T.EASTIMATE_STATUS = '2'  OR T.EASTIMATE_STATUS IS NULL)
+         <if test="realIncomeStatus != null">
+            AND   T.REAL_STATUS = #{realIncomeStatus}  
+     	</if>
+         <if test="q_userId != null">
+          AND   P.PROJECT_USER_ID = #{q_userId}  
+         </if>
+         <if test="q_userName != null">
+          AND    (U.USER_NAME LIKE CONCAT(CONCAT('%',#{q_userName}),'%') ESCAPE '\') 
+        </if>
+         <if test="q_incomeClassId != null">
+          AND   P.INCOME_CLASS_ID = #{q_incomeClassId}
+        </if>
+         <if test="q_incomeSectionId != null">
+          AND   P.INCOME_SECTION_ID = #{q_incomeSectionId}
+         </if>
+         <if test="q_dept != null">
+          AND   D.DEPT_CODE = #{q_dept}
+ 		</if>
+         <if test="est_income != null">
+          AND   T.REAL_INCOME = #{est_income}
+        </if>
+         <if test="est_exclusive_tax != null">
+          AND  T.REAL_EXCLUSIVE_TAX = #{est_exclusive_tax}
+        </if>
+         <if test="q_cx != null">
+          AND  T.OFFSET = #{q_cx}
+       </if>
+         <if test="q_bill != null">
+          AND  T.ISNEED_BILL = #{q_bill}
+        </if>
+         <if test="q_merge != null">
+          AND  T.MERGE_STATUS = #{q_merge}
+       </if>
+         <if test="bzCycleReal != null">
+          AND  T.BZ_CYCLE_REAL = #{bzCycleReal}
+         </if>
+          <if test="incomeManagerIds != null"> 
+	     			AND T.income_manager_id in
+					    <foreach collection="incomeManagerIds" item = "incomeManagerId" open="(" separator="," close=")">
+					  		#{incomeManagerId}
+					    </foreach>
+	     	</if>
+    	ORDER BY T.CYCLE
+     	)M
+     )
+  </select>
+  <!-- 合并实际收入查询 -->
+  <select id="queryMergeIncome" resultMap="BaseResultMap" parameterType="java.util.Map">
+  SELECT * FROM (
+   SELECT T1.*,ROWNUM R FROM (
+   SELECT T.*, P.INCOME_CLASS_ID, C.INCOME_NAME CLASS_NAME, P.INCOME_SECTION_ID,Z.INCOME_NAME SECTION_NAME,
+    D.DEPT_NAME,D.DEPT_CODE,U.USER_ID,U.USER_NAME,P.PROJECT_USER_ID FROM T_MIGU_INCOME_MANAGER T LEFT JOIN T_MIGU_PROJECT_BASE P ON T.PROJECT_ID = P.PROJECT_ID
+    LEFT JOIN T_MIGU_DEPARTMENTS D ON P.PROJECT_DEPT_ID = D.DEPT_CODE LEFT JOIN T_MIGU_USERS U ON P.PROJECT_USER_ID = U.USER_ID LEFT JOIN 
+    T_MIGU_INCOME_CATEGORIES C ON C.INCOME_ID = P.INCOME_CLASS_ID LEFT JOIN T_MIGU_INCOME_CATEGORIES Z ON (Z.INCOME_ID = P.INCOME_SECTION_ID AND
+    Z.INCOME_PARENT_ID = P.INCOME_CLASS_ID) WHERE T.MERGE_STATUS = '2'
+    	<if test="q_projectId != null">
+         	AND   (T.PROJECT_ID LIKE CONCAT(CONCAT('%',#{q_projectId}),'%') ESCAPE '\')
+         </if>  
+         <if test="q_projectName != null">
+         	AND   (T.PROJECT_NAME LIKE CONCAT(CONCAT('%',#{q_projectName}),'%') ESCAPE '\') 
+         </if> 
+         <if test="q_month != null"> 
+         	AND   T.CYCLE = #{q_month}
+         </if>
+         <if test="bzCycleReal != null"> 
+         	AND T.BZ_CYCLE_REAL=#{bzCycleReal}
+         </if>
+         <if test="q_incomeClassId != null"> 
+         	AND P.INCOME_CLASS_ID=#{q_incomeClassId}
+         </if>
+          <if test="q_incomeSectionId != null"> 
+         	AND P.INCOME_SECTION_ID=#{q_incomeSectionId}
+         </if>
+          <if test="q_dept != null"> 
+         	AND D.DEPT_CODE=#{q_dept}
+         </if>
+          <if test="q_userName != null"> 
+        	 AND   (U.USER_NAME LIKE CONCAT(CONCAT('%',#{q_userName}),'%') ESCAPE '\')
+         </if>
+          <if test="rl_income != null">  
+         	AND T.REAL_INCOME=#{rl_income}
+         </if>
+          <if test="rl_exclusive_tax != null"> 
+         	AND T.REAL_EXCLUSIVE_TAX=#{rl_exclusive_tax}
+         </if>
+          <if test="offset != null "> 
+         	AND T.OFFSET = #{offset}
+         </if>
+        ORDER BY T.CYCLE
+        ) T1
+       )	WHERE <![CDATA[ R > (#{page}-1) * #{rows} AND R <= (#{page}) * #{rows}]]> 
+  </select>
+ 
+    <select id="getMergeIncomeTotal" resultType="java.lang.Integer"  parameterType="java.util.Map">
+	       SELECT COUNT(1) FROM T_MIGU_INCOME_MANAGER T LEFT JOIN T_MIGU_PROJECT_BASE P ON T.PROJECT_ID = P.PROJECT_ID
+    LEFT JOIN T_MIGU_DEPARTMENTS D ON P.PROJECT_DEPT_ID = D.DEPT_CODE LEFT JOIN T_MIGU_USERS U ON P.PROJECT_USER_ID = U.USER_ID LEFT JOIN 
+    T_MIGU_INCOME_CATEGORIES C ON C.INCOME_ID = P.INCOME_CLASS_ID LEFT JOIN T_MIGU_INCOME_CATEGORIES Z ON (Z.INCOME_ID = P.INCOME_SECTION_ID AND
+    Z.INCOME_PARENT_ID = P.INCOME_CLASS_ID) WHERE T.MERGE_STATUS = '2'
+    	<if test="q_projectId != null">
+         	AND   (T.PROJECT_ID LIKE CONCAT(CONCAT('%',#{q_projectId}),'%') ESCAPE '\')
+         </if>  
+         <if test="q_projectName != null">
+         	AND   (T.PROJECT_NAME LIKE CONCAT(CONCAT('%',#{q_projectName}),'%') ESCAPE '\') 
+         </if> 
+         <if test="q_month != null"> 
+         	AND   T.CYCLE = #{q_month}
+         </if>
+         <if test="bzCycleReal != null"> 
+         	AND T.BZ_CYCLE_REAL=#{bzCycleReal}
+         </if>
+         <if test="q_incomeClassId != null"> 
+         	AND P.INCOME_CLASS_ID=#{q_incomeClassId}
+         </if>
+          <if test="q_incomeSectionId != null"> 
+         	AND P.INCOME_SECTION_ID=#{q_incomeSectionId}
+         </if>
+          <if test="q_dept != null"> 
+         	AND D.DEPT_CODE=#{q_dept}
+         </if>
+          <if test="q_userName != null"> 
+        	 AND   (U.USER_NAME LIKE CONCAT(CONCAT('%',#{q_userName}),'%') ESCAPE '\')
+         </if>
+          <if test="rl_income != null">  
+         	AND T.REAL_INCOME=#{rl_income}
+         </if>
+          <if test="rl_exclusive_tax != null"> 
+         	AND T.REAL_EXCLUSIVE_TAX=#{rl_exclusive_tax}
+         </if>
+          <if test="offset != null"> 
+         	AND T.OFFSET=#{offset}
+         </if>
+  </select>
+  
+  <!-- 查询可以合并的实际收入记录 -->
+   <select id="queryMergeRealIncome" resultType="java.util.Map"  parameterType="java.util.Map">
+	 select * from (
+	select t.*,rownum r from (
+ 	select m.*,d.dept_code,d.dept_name,u.user_id,
+    u.user_name from t_migu_income_manager m left join t_migu_project_base p on m.project_id=p.project_id
+    left join t_migu_users u on p.project_user_id=u.user_id left join t_migu_departments d on 
+    p.project_dept_id=d.dept_code where m.real_status='2' and m.isneed_bill='1' and m.MERGE_STATUS='0' and ((select count(*) from  
+	t_migu_income_billing b where b.project_id=p.project_id and b.cycle=m.cycle )=0) order by m.cycle desc) t
+	where 1=1
+    <if test="dept_id != null"> 
+        		AND   t.dept_code in
+        		 <foreach item="item" index="index" collection="dept_id" 
+                         open="(" separator="," close=")">
+                        #{item}
+                </foreach>
+    </if>
+     <if test="startDate != null and endDate==null"> 
+     	<![CDATA[ and t.cycle >=#{startDate}]]>
+     </if>
+      <if test="startDate == null and endDate !=null"> 
+     	<![CDATA[ and t.cycle <= #{endDate}]]>   
+     </if>
+      <if test="startDate != null and endDate !=null"> 
+     	<![CDATA[ and t.cycle between #{startDate} and #{endDate}]]>   
+     </if>
+	) 
+  <!--   where  r between (#{page}-1) * #{rows} + 1 and (#{page}) * #{rows} -->
+  </select>
+  
+   <!-- 查询可以合并的实际收入记录总条数 -->
+   <select id="getMergeRealIncomeCount" resultType="java.lang.Integer"  parameterType="java.util.Map">
+	
+	select count(1) from (
+ 	select m.cycle,m.project_id,m.project_name,m.real_income,d.dept_code,d.dept_name,u.user_id,
+    u.user_name from t_migu_income_manager m left join t_migu_project_base p on m.project_id=p.project_id
+    left join t_migu_users u on p.project_user_id=u.user_id left join t_migu_departments d on 
+    p.project_dept_id=d.dept_code where m.real_status='2' and m.isneed_bill='1' and m.MERGE_STATUS='0' and ((select count(*) from  
+	t_migu_income_billing b where b.project_id=p.project_id and b.cycle=m.cycle )=0)) t
+	where 1=1
+    <if test="dept_id != null"> 
+        		AND   t.dept_code in
+        		 <foreach item="item" index="index" collection="dept_id" 
+                         open="(" separator="," close=")">
+                        #{item}
+                </foreach>
+    </if>
+	
+  </select>
+  <select id="getMergeRealIncome" resultMap="BaseResultMap"  parameterType="java.util.Map">
+	select <include refid="Base_Column_List" /> from t_migu_income_manager t	where 1=1
+    <if test="items != null"> 
+        		AND   t.INCOME_MANAGER_ID in
+        		 <foreach item="item" index="index" collection="items" 
+                         open="(" separator="," close=")">
+                        #{item}
+                </foreach>
+    </if>
+	
+  </select>
+   <select id="viewMergeDetail" resultType="java.util.Map"  parameterType="java.lang.String">
+	select * from (
+ 	select m.*,d.dept_code,d.dept_name,u.user_id,
+    u.user_name from t_migu_income_manager m left join t_migu_project_base p on m.project_id=p.project_id
+    left join t_migu_users u on p.project_user_id=u.user_id left join t_migu_departments d on 
+    p.project_dept_id=d.dept_code where m.real_status='2'  and m.MERGE_STATUS='1' and m.MERGE_ID =#{0} order by m.cycle desc)
+	</select>
+	
+	 <update id="revokeMerge" parameterType="java.lang.String">
+	 	update  t_migu_income_manager set MERGE_STATUS='0',MERGE_ID=null
+	 	where MERGE_ID=#{0}
+	</update>
+	 <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_MIGU_INCOME_MANAGER
+    where INCOME_MANAGER_ID = #{0}
+  </select>
+</mapper>
